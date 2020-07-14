@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "161891893071",
+    "firebase_url": "https://red-wings-6b1c6.firebaseio.com",
+    "project_id": "red-wings-6b1c6",
+    "storage_bucket": "red-wings-6b1c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161891893071:android:3abbecc39f81e333908f3a",
+        "android_client_info": {
+          "package_name": "com.example.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161891893071-kv7sdmm3ounpt8oe4a00v5seshq5avbb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP4IbncSvUr3w90PsHg883RAgoBIYZw_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161891893071-kv7sdmm3ounpt8oe4a00v5seshq5avbb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161891893071:android:71eff57c6a04daad908f3a",
+        "android_client_info": {
+          "package_name": "com.example.blooddonationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161891893071-kv7sdmm3ounpt8oe4a00v5seshq5avbb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP4IbncSvUr3w90PsHg883RAgoBIYZw_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161891893071-kv7sdmm3ounpt8oe4a00v5seshq5avbb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161891893071:android:f04733a800e01565908f3a",
+        "android_client_info": {
+          "package_name": "com.example.redwingsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161891893071-kv7sdmm3ounpt8oe4a00v5seshq5avbb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP4IbncSvUr3w90PsHg883RAgoBIYZw_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161891893071-kv7sdmm3ounpt8oe4a00v5seshq5avbb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
