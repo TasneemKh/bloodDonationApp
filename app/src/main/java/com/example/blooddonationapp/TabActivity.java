@@ -44,8 +44,9 @@ public class TabActivity extends AppCompatActivity implements BottomNavigationVi
     }
     home home=new home();
     map map=new map();
+    MapsActivity mapsActivity=new MapsActivity();
     notification notification=new notification();
-    history history=new history();
+    HistoryActivity history=new HistoryActivity();
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment selectedFragment = null;
@@ -57,7 +58,7 @@ public class TabActivity extends AppCompatActivity implements BottomNavigationVi
                 return true;
 
             case R.id.navigation_map :
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,map).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, map).commit();
                 return true;
 
             case R.id.navigation_notifications:
