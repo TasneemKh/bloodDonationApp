@@ -3,9 +3,14 @@ import java.util.Date;
 
 public class donationHistory {
     private String donationType,placeOfDonation;
-    private Date dateOfDonation;
+    private String dateOfDonation;
     private int id;
+public donationHistory( String donationType,String placeOfDonation,String dateOfDonation){
+    setDonationType(donationType);
+    setPlaceOfDonation(placeOfDonation);
+    setDateOfDonation(dateOfDonation);
 
+}
     public int getId() {
         return id;
     }
@@ -30,11 +35,11 @@ public class donationHistory {
         this.placeOfDonation = placeOfDonation;
     }
 
-    public Date getDateOfDonation() {
+    public String getDateOfDonation() {
         return dateOfDonation;
     }
 
-    public void setDateOfDonation(Date dateOfDonation) {
+    public void setDateOfDonation(String dateOfDonation) {
         this.dateOfDonation = dateOfDonation;
     }
 

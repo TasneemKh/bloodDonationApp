@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DataParser {
-    // pass data to getNearPlace as a json
+    // pass data to getNearPlace class as a json
     public List<HashMap<String, String>> parse(String jsonData) {
         JSONArray jsonArray = null;
         JSONObject jsonObject;
@@ -46,7 +46,7 @@ public class DataParser {
         }
         return placesList;
     }
-
+//get single hash array
     private HashMap<String, String> getPlace(JSONObject googlePlaceJson) {
         HashMap<String, String> googlePlaceMap = new HashMap<String, String>();
         String placeName = "-NA-";

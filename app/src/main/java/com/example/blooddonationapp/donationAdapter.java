@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,7 +36,7 @@ public class donationAdapter extends RecyclerView.Adapter<donationAdapter.donati
 
     @Override
     public int getItemCount() {
-        return 0;
+        return donationHistory.size();
     }
 
 
@@ -54,13 +55,14 @@ public class donationAdapter extends RecyclerView.Adapter<donationAdapter.donati
             // std_id.setText(donationHistory.getId());
             Donation_type.setText(donationHistory.getDonationType());
             bloodbank.setText(donationHistory.getPlaceOfDonation());
-            date.setText(format.format(new Date(String.valueOf(donationHistory.getDateOfDonation()))));
+            date.setText(donationHistory.getDateOfDonation());
+            //date.setText(format.format(new Date(String.valueOf(donationHistory.getDateOfDonation()))));
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                 /*   Toast.makeText(context, donationHistory.getName(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(itemView.getContext() ,stdActivity.class);
+                  Toast.makeText(context, donationHistory.getDonationType(), Toast.LENGTH_SHORT).show();
+                   /* Intent intent = new Intent(itemView.getContext() ,stdActivity.class);
                   //  intent.putExtra("id",donationHistory.getId());
                     intent.putExtra("name",donationHistory.getName());
                     intent.putExtra("level",donationHistory.getLevel());

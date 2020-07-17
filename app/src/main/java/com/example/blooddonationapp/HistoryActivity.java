@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class HistoryActivity extends Fragment {
@@ -59,18 +60,25 @@ public class HistoryActivity extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_history,container,false);
-        String uid = user.getUid();
+
+        return view;
+
+    }
+
+    public void onViewCreated(View v, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(v, savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+        String uid = user.getUid();
 
         // Initialize Template Model Class
         // Lookup the Recycler view in fragment layout
-        recyclerView0 = view.findViewById(R.id.donation_rv);
+        recyclerView0 = getView().findViewById(R.id.donation_rv);
         recyclerView0.setHasFixedSize(true);
         // Attach the adapter to the recyclerview to populate items
-      //  donationAdapter = new donationAdapter(template,inflater.getContext());//>>>This is the error i'm facig
+        //  donationAdapter = new donationAdapter(template,inflater.getContext());//>>>This is the error i'm facig
         // Set layout manager to position the items
-        recyclerView0.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView0.setLayoutManager(new LinearLayoutManager(getContext()));
 
         reference = FirebaseDatabase.getInstance().getReference().child("donations").child(uid);
         reference.addValueEventListener(new ValueEventListener() {
@@ -81,27 +89,34 @@ public class HistoryActivity extends Fragment {
                 list0 = new ArrayList<donationHistory>();
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    donationHistory p = dataSnapshot1.getValue(donationHistory.class);
+                    System.out.println(dataSnapshot1.getValue());
+                    String donationType = dataSnapshot1.child("donationType").getValue(String.class);
+                    System.out.println(donationType);
+
+                    String placeOfDonation = dataSnapshot1.child("placeOfDonation").getValue(String.class);
+
+                    String dateOfDonation = dataSnapshot1.child("dateOfDonation").getValue(String.class);
+                 // donationHistory p = dataSnapshot1.getValue(donationHistory.class);
+                    donationHistory p =new donationHistory(donationType,placeOfDonation,dateOfDonation);
+
                     list0.add(p);
                 }
                 donationAdapter = new donationAdapter(getActivity(), list0);
                 recyclerView0.setAdapter(donationAdapter);
 
             }
-                   /* String name = value.getP_name();
-                    String desig = value.getP_designation();
-                    String email = value.getP_email();
-                    String phone = value.getP_phone();
-                    String address = value.getC_address();
-                }*/
-                    @Override
-                    public void onCancelled (@NonNull DatabaseError error){
+            /* String name = value.getP_name();
+             String desig = value.getP_designation();
+             String email = value.getP_email();
+             String phone = value.getP_phone();
+             String address = value.getC_address();
+         }*/
+            @Override
+            public void onCancelled (@NonNull DatabaseError error){
 
-                    }
+            }
 
         });
-        return view;
-
     }
 
-}
+    }
