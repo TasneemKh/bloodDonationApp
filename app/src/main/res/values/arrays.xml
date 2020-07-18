@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dialog_single_choice_array">
+        <item>Newest</item>
+        <item>from oldest</item>
+        <item>Blood Donation only</item>
+        <item>Platelets donation only</item>
+    </string-array>
+</resources>

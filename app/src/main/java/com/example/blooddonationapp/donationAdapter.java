@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -55,9 +56,9 @@ public class donationAdapter extends RecyclerView.Adapter<donationAdapter.donati
             // std_id.setText(donationHistory.getId());
             Donation_type.setText(donationHistory.getDonationType());
             bloodbank.setText(donationHistory.getPlaceOfDonation());
-            date.setText(donationHistory.getDateOfDonation());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            date.setText(dateFormat.format(donationHistory.getDateOfDonation()));
             //date.setText(format.format(new Date(String.valueOf(donationHistory.getDateOfDonation()))));
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

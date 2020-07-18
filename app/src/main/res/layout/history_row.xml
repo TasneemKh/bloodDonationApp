@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="8dp"
+        android:padding="4dp"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
@@ -19,6 +20,8 @@
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
             android:contentDescription="@string/blood_drop"
             app:srcCompat="@drawable/drop_of_blood"
             tools:ignore="VectorDrawableCompat" />
@@ -33,8 +36,10 @@
                 android:id="@+id/Donation_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:paddingLeft="8dp"
+                android:layout_marginBottom="4dp"
+                android:paddingStart="4dp"
+                android:paddingLeft="4dp"
+                android:paddingEnd="8dp"
                 android:paddingRight="8dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
@@ -45,35 +50,25 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".2"
-                    android:contentDescription="@string/blood_bank"
-                    app:srcCompat="@drawable/bloodbank_icon"
-                    tools:ignore="VectorDrawableCompat" />
 
                 <TextView
                     android:id="@+id/bloodbank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/bloodbank_icon"
+                    android:drawableLeft="@drawable/bloodbank_icon"
+                                        />
 
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".2"
-                    android:contentDescription="@string/date"
-                    app:srcCompat="@drawable/date_icon"
-                    tools:ignore="VectorDrawableCompat" />
 
                 <TextView
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_gravity="right|end"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/date_icon"
+                    android:drawableLeft="@drawable/date_icon" />
             </LinearLayout>
 
         </LinearLayout>
@@ -83,6 +78,8 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#25C8C8C8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />

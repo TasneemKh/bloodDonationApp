@@ -3,9 +3,16 @@ import java.util.Date;
 
 public class donationHistory {
     private String donationType,placeOfDonation;
-    private String dateOfDonation;
+    //private String dateOfDonation;
+    private Date dateOfDonation;
     private int id;
-public donationHistory( String donationType,String placeOfDonation,String dateOfDonation){
+/*public donationHistory( String donationType,String placeOfDonation,String dateOfDonation){
+    setDonationType(donationType);
+    setPlaceOfDonation(placeOfDonation);
+   // setDateOfDonation(dateOfDonation);
+
+}*/
+public donationHistory( String donationType,String placeOfDonation,Date dateOfDonation){
     setDonationType(donationType);
     setPlaceOfDonation(placeOfDonation);
     setDateOfDonation(dateOfDonation);
@@ -35,7 +42,7 @@ public donationHistory( String donationType,String placeOfDonation,String dateOf
         this.placeOfDonation = placeOfDonation;
     }
 
-    public String getDateOfDonation() {
+   /* public String getDateOfDonation() {
         return dateOfDonation;
     }
 
@@ -43,6 +50,13 @@ public donationHistory( String donationType,String placeOfDonation,String dateOf
         this.dateOfDonation = dateOfDonation;
     }
 
+*/
+   public Date getDateOfDonation() {
+       return dateOfDonation;
+   }
 
+    public void setDateOfDonation(Date dateOfDonation) {
+        this.dateOfDonation = dateOfDonation;
+    }
 
 }

@@ -118,16 +118,12 @@ public class map extends Fragment implements OnMapReadyCallback {
 
 
     public map() {
-
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
-        // Initialize the AutocompleteSupportFragment.
-
-
+        // Initialize the AutocompleteSupportFragment
         return view;
     }
 
@@ -165,7 +161,9 @@ public class map extends Fragment implements OnMapReadyCallback {
                         if (addressList != null) {
                             for (int i = 0; i < addressList.size(); i++) {
                                 Address address = addressList.get(0);
-                                LatLngBounds ADELAIDE = new LatLngBounds(new LatLng(31.3290, 34.2107), new LatLng(31.5281, 34.5829));
+                                LatLngBounds ADELAIDE = new LatLngBounds
+                                        (new LatLng(31.3290, 34.2107),
+                                                new LatLng(31.5281, 34.5829));
                                 LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
                                 markerOptions = new MarkerOptions();
                                 markerOptions.position(latLng);
