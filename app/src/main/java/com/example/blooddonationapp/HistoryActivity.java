@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -32,6 +33,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static android.view.View.GONE;
 
 
 public class HistoryActivity extends Fragment {
@@ -50,6 +53,7 @@ public class HistoryActivity extends Fragment {
     ImageButton filter;
     View view;
     String uid;
+    ProgressBar pgsBar;
     private LinearLayoutManager mLayoutManager;
 
     public HistoryActivity() {
@@ -78,6 +82,7 @@ public class HistoryActivity extends Fragment {
 
     public void onViewCreated(View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
+        pgsBar = (ProgressBar)getView().findViewById(R.id.pBar);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
          uid = user.getUid();
@@ -117,6 +122,7 @@ public class HistoryActivity extends Fragment {
                 donationAdapter = new donationAdapter(getActivity(), list0);
                 int i=donationAdapter.getItemCount();
                 System.out.println(i);
+                pgsBar.setVisibility(GONE);
                 recyclerView0.setAdapter(donationAdapter);
 
             }
@@ -138,7 +144,7 @@ public class HistoryActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 String[] singleChoiceItems = getResources().getStringArray(R.array.dialog_single_choice_array);
-                int itemSelected = -1;
+                int itemSelected = 0;
                 new AlertDialog.Builder(getContext())
                         .setTitle("Filter your history donation")
                         .setSingleChoiceItems(singleChoiceItems, itemSelected, new DialogInterface.OnClickListener() {

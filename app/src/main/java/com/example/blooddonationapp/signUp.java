@@ -265,10 +265,10 @@ public class signUp extends AppCompatActivity implements View.OnClickListener  {
         if (birthText.isEmpty()) {
             birth.setError("Field can't be empty");
             return false;
-        } else if (!((Calendar.getInstance().get(Calendar.YEAR)-year) > 16)) {
+        } /*else if (!((Calendar.getInstance().get(Calendar.YEAR)-year) > 16)) {
             birth.setError("you need to be +16 years ");
             return false;
-        } else {
+        } */else {
             birth.setError(null);
             return true;
         }

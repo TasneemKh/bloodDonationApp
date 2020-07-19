@@ -70,7 +70,11 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
 
 import org.json.JSONObject;
@@ -81,6 +85,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -115,7 +121,8 @@ public class map extends Fragment implements OnMapReadyCallback {
     ProgressDialog progressDialog;
     LatLng origin = new LatLng(31.4309, 34.3729);
     LatLng dest = new LatLng(31.4211, 34.3851);
-
+    String uid;
+    DatabaseReference reference;
 
     public map() {
     }
@@ -123,7 +130,6 @@ public class map extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
-        // Initialize the AutocompleteSupportFragment
         return view;
     }
 
@@ -131,13 +137,12 @@ public class map extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
 
+       // System.out.println(uid);
         // Construct a PlacesClient
         Places.initialize(getActivity().getApplicationContext(), getString(R.string.api_Key));
         PlacesClient placesClient = Places.createClient(getContext());
         // Construct a FusedLocationProviderClient.
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-
-        // Build the map.
         // [START maps_current_place_map_fragment]
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment == null) {
@@ -240,23 +245,6 @@ public class map extends Fragment implements OnMapReadyCallback {
 
     }
 
-    private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
-        if (ContextCompat.checkSelfPermission(getContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            locationPermissionGranted = true;
-        } else {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-        }
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -314,7 +302,57 @@ public class map extends Fragment implements OnMapReadyCallback {
 
         // Get the current location of the device and set the position of the map.
        getDeviceLocation();
+        mark();
 
+    }
+    private void mark(){
+        LatLng latLng0;
+        reference = FirebaseDatabase.getInstance().getReference().child("Hospitals").child("Gaza");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList list0= new ArrayList();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    String Hospital_name = dataSnapshot1.child("Hospital_name").getValue(String.class);
+                    String Type = dataSnapshot1.child("Type").getValue(String.class);
+                    double latitude = dataSnapshot1.child("latitude").getValue(double.class);
+                    double longitude = dataSnapshot1.child("longitude").getValue(double.class);
+                    LatLng latLng0 = new LatLng(latitude,longitude);
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng0);
+                    markerOptions.title(Hospital_name);
+                    if(Type.equals("campaign")) {
+                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                    }else {
+                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                    }
+                    mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
+
+                }
+
+            }
+            @Override
+            public void onCancelled (@NonNull DatabaseError error){
+
+            }
+        });
+    }
+
+    private void getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(getContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            locationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
     }
     private void updateLocationUI() {
         if (mGoogleMap == null) {
@@ -360,6 +398,35 @@ public class map extends Fragment implements OnMapReadyCallback {
                                     markerOptions.title("Current Position");
                                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
                                     mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
+                                    mAuth = FirebaseAuth.getInstance();
+                                    user = mAuth.getCurrentUser();
+                                    uid = mAuth.getCurrentUser().getUid();
+                                    Map<String,Object> data = new HashMap<>();
+                                    latitude=  lastKnownLocation.getLatitude();
+                                    longitude= lastKnownLocation.getLongitude();
+                                    data.put("latitude",latitude);
+                                    data.put("longitude",longitude);
+                                 //   if(latitude != null && longitude != null ) {
+                                        FirebaseDatabase.getInstance().getReference().child("UserLocation").child(uid).setValue(data)
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(getActivity().getApplicationContext(),
+                                                                "on Failuer", Toast.LENGTH_SHORT).show();
+                                                        Log.d("error", e.getLocalizedMessage());
+                                                    }
+                                                })
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+
+                                                    }
+                                                });
+
+                                  /*  }else{
+                                        Toast.makeText(getContext(), "please , open your gps", Toast.LENGTH_SHORT).show();
+
+                                    }*/
                                     /*String url=getUrl(latitude,longitude,hospital);
                                     Object transferData[]=new Object[2];
                                     transferData[0]=mGoogleMap;

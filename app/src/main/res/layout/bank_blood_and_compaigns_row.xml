@@ -38,7 +38,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/al_shifa_hospital"
@@ -48,7 +48,7 @@
 
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -57,11 +57,12 @@
                 android:drawableLeft="@drawable/ic_near_me_24px"
                 android:drawablePadding="8dp"
                 android:text="@string/_497_evergreen_rd_roseville"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:drawableStart="@drawable/ic_near_me_24px" />
 
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/numberOfUnits"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
