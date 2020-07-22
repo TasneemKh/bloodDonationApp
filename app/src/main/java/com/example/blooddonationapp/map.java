@@ -34,6 +34,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.blooddonationapp.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -53,6 +55,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -94,6 +97,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
+import static android.view.View.GONE;
+
 public class map extends Fragment implements OnMapReadyCallback {
     private MapView mMapView;
     private GoogleMap googleMap;
@@ -122,8 +127,10 @@ public class map extends Fragment implements OnMapReadyCallback {
     LatLng origin = new LatLng(31.4309, 34.3729);
     LatLng dest = new LatLng(31.4211, 34.3851);
     String uid;
-    DatabaseReference reference;
-
+    DatabaseReference reference,reference1;
+    RecyclerView bloodbank;
+    campaignsAdapter campaignsAdapter;
+    LinearLayoutManager  mLayoutManager;
     public map() {
     }
     @Override
@@ -136,8 +143,8 @@ public class map extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
+        bloodBankRecycleView();
 
-       // System.out.println(uid);
         // Construct a PlacesClient
         Places.initialize(getActivity().getApplicationContext(), getString(R.string.api_Key));
         PlacesClient placesClient = Places.createClient(getContext());
@@ -202,6 +209,8 @@ public class map extends Fragment implements OnMapReadyCallback {
                 return false;
             }
         });
+/*LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+recyclerView.setLayoutManager(horizontalLayoutManagaer);*/
     /*AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
             getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
@@ -244,6 +253,38 @@ public class map extends Fragment implements OnMapReadyCallback {
 
 
     }
+    public void bloodBankRecycleView(){
+
+        bloodbank = getView().findViewById(R.id.bloodbank);
+        bloodbank.setHasFixedSize(true);
+        mLayoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        bloodbank.setLayoutManager(mLayoutManager);
+        reference1 =  FirebaseDatabase.getInstance().getReference().child("Hospitals").child("Gaza");
+        reference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList list = new ArrayList<Campaigns>();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    System.out.println(dataSnapshot1.getValue());
+                    String Hospital_name = dataSnapshot1.child("Hospital_name").getValue(String.class);
+                    String Type = dataSnapshot1.child("Type").getValue(String.class);
+                    int no_units_needed= dataSnapshot1.child("no_units_needed").getValue(int.class);
+                    String location = dataSnapshot1.child("location").getValue(String.class);
+                    Campaigns p =new Campaigns(Hospital_name,Type,no_units_needed,location);
+                    list.add(p);
+                }
+                campaignsAdapter = new campaignsAdapter(getActivity(), list);
+                int i=campaignsAdapter.getItemCount();
+                System.out.println(i);
+                bloodbank.setAdapter(campaignsAdapter);
+            }
+            @Override
+            public void onCancelled (@NonNull DatabaseError error){
+
+            }
+        });
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -265,35 +306,14 @@ public class map extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
+        mGoogleMap.getUiSettings().setCompassEnabled(false);
+        mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
         LatLng gaza = new LatLng(31.5017, 34.4668);
         mGoogleMap.addMarker(new MarkerOptions().position(gaza).title("Title").snippet("Gaza"));
         // For zooming functionality
         CameraPosition cameraPosition = new CameraPosition.Builder().target(gaza).zoom(15).build();
         mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        // [END map_current_place_set_info_window_adapter]
 
-       /* mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        mGoogleMap.setMyLocationEnabled(true);
-        mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
-
-        // Show marker on the screen and adjust the zoom level
-        mGoogleMap.addMarker(new MarkerOptions().position(origin).title("Origin"));
-        mGoogleMap.addMarker(new MarkerOptions().position(dest).title("Destination"));
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(origin,8f));
-        new DownloadTask().execute(getDirectionsUrl(origin,dest));*/
         // Prompt the user for permission.
         getLocationPermission();
 
@@ -337,7 +357,6 @@ public class map extends Fragment implements OnMapReadyCallback {
             }
         });
     }
-
     private void getLocationPermission() {
         /*
          * Request location permission, so that we can get the location of the
@@ -361,7 +380,7 @@ public class map extends Fragment implements OnMapReadyCallback {
         try {
             if (locationPermissionGranted) {
                 mGoogleMap.setMyLocationEnabled(true);
-                mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
+                //mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
             } else {
                 mGoogleMap.setMyLocationEnabled(false);
                 mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -452,7 +471,10 @@ public class map extends Fragment implements OnMapReadyCallback {
         }
     }
 
-   /* private String getUrl(double latitude,double longitude,String hospital){
+
+}
+
+  /* private String getUrl(double latitude,double longitude,String hospital){
     StringBuilder googleUrl=new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googleUrl.append("location=" + latitude + "," + longitude);
         googleUrl.append("&radius=" + ProximityRadius);
@@ -640,6 +662,27 @@ public class map extends Fragment implements OnMapReadyCallback {
         return data;
     }
 */
+// [END map_current_place_set_info_window_adapter]
 
-}
+       /* mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mGoogleMap.setMyLocationEnabled(true);
+        mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
 
+        // Show marker on the screen and adjust the zoom level
+        mGoogleMap.addMarker(new MarkerOptions().position(origin).title("Origin"));
+        mGoogleMap.addMarker(new MarkerOptions().position(dest).title("Destination"));
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(origin,8f));
+        new DownloadTask().execute(getDirectionsUrl(origin,dest));*/

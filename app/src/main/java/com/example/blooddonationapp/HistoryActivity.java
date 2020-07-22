@@ -140,12 +140,11 @@ public class HistoryActivity extends Fragment {
         });
         filter=getView().findViewById(R.id.filter);
         filter.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
                 String[] singleChoiceItems = getResources().getStringArray(R.array.dialog_single_choice_array);
                 int itemSelected = 0;
-                new AlertDialog.Builder(getContext())
+                AlertDialog alertDialog= new AlertDialog.Builder(getContext())
                         .setTitle("Filter your history donation")
                         .setSingleChoiceItems(singleChoiceItems, itemSelected, new DialogInterface.OnClickListener() {
                             @Override
@@ -232,6 +231,7 @@ public class HistoryActivity extends Fragment {
                                     }
                                 });
                             }
+                                dialogInterface.dismiss();
                             }
                         })
                        /* .setPositiveButton("Ok", null)

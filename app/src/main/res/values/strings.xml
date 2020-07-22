@@ -88,7 +88,7 @@
     <string name="notes">Notes</string>
     <string name="add_notes">add notes</string>
     <string name="add_req">add Request</string>
-
+/*donation_history*/
     <string name="SignIn_txt">Welcome back! \n You’ve been missed</string>
     <string name="donation_history">Donation History</string>
     <string name="blood_drop">blood drop</string>
@@ -108,11 +108,11 @@
     <string name="more_info">more info</string>
 
     <string name="title_activity_tab">MainActivity</string>
-
+/*tab fragment*/
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_dashboard">history</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_map">map</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ok">OK</string>
+
 </resources>

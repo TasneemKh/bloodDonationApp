@@ -2,25 +2,81 @@ package com.example.blooddonationapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class TabActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
-    BottomNavigationView nav_view;
+    private Toolbar mToolbar ;
+    private BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
-        nav_view = findViewById(R.id.nav_view);
+        bottomNavigationView = findViewById(R.id.nav_view);
+        bottomNavigationView.setItemIconTintList(null);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.bottom_nav_menu, menu);
+        return true ;
+    }
+    home home=new home();
+    map map=new map();
+    MapsActivity mapsActivity=new MapsActivity();
+    notification notification=new notification();
+    HistoryActivity history=new HistoryActivity();
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Menu menu = bottomNavigationView.getMenu();
+
+        menu.findItem(R.id.navigation_home).setIcon(R.drawable.ic_home_24px);
+        menu.findItem(R.id.navigation_map).setIcon(R.drawable.ic_map);
+        menu.findItem(R.id.navigation_notifications).setIcon(R.drawable.ic_notification);
+        menu.findItem(R.id.navigation_dashboard).setIcon(R.drawable.ic_reservation);
+        //Fragment selectedFragment = null;
+        switch (item.getItemId()) {
+            case R.id.navigation_home:
+                item.setIcon(R.drawable.ic_fill_home_24px);
+                getSupportFragmentManager().beginTransaction().
+                        setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                        .replace(R.id.container, home).commit();
+                return true;
+            case R.id.navigation_map:
+                item.setIcon(R.drawable.ic_fill_history);
+                getSupportFragmentManager().beginTransaction().
+                        setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                        .replace(R.id.container, map).commit();
+                return true;
+            case R.id.navigation_notifications:
+                item.setIcon(R.drawable.ic_fill_notification);
+                getSupportFragmentManager().beginTransaction().
+                        setCustomAnimations(R.anim.fade_in, R.anim.fade_out).
+                        replace(R.id.container, notification).commit();
+                return true;
+            case R.id.navigation_dashboard:
+                item.setIcon(R.drawable.ic_fill_reservation);
+                getSupportFragmentManager().beginTransaction().
+                        setCustomAnimations(R.anim.fade_in, R.anim.fade_out).
+                        replace(R.id.container, history).commit();
+                return true;
+        }
+        return false;
+    }
+}
+ /*  nav_view = findViewById(R.id.nav_view);
         nav_view.setOnNavigationItemSelectedListener(this);
 
-        nav_view.setSelectedItemId(R.id.navigation_home);
+        nav_view.setSelectedItemId(R.id.navigation_home);*/
 
            /* when(item.itemId) {
                 R.id.navigation_home -> {
@@ -41,34 +97,7 @@ public class TabActivity extends AppCompatActivity implements BottomNavigationVi
                 }
             }
         };*/
-    }
-    home home=new home();
-    map map=new map();
-    MapsActivity mapsActivity=new MapsActivity();
-    notification notification=new notification();
-    HistoryActivity history=new HistoryActivity();
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment selectedFragment = null;
-        switch (item.getItemId()){
-            case R.id.navigation_home:
-                nav_view.setItemIconTintList(ColorStateList.valueOf(Color.parseColor("#043353")));
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,home).commit();
-                return true;
-
-            case R.id.navigation_map :
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, map).commit();
-                return true;
-
-            case R.id.navigation_notifications:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,notification).commit();
-                return true;
-
-            case R.id.navigation_dashboard :
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,history).commit();
-                return true;
-        }
-        return false;
-    }
-}
+        /*mToolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(mToolbar);
+*/
+// to create bottom navigation bar

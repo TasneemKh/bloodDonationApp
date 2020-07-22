@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
@@ -45,17 +44,27 @@ public class campaignsAdapter extends RecyclerView.Adapter<campaignsAdapter.Camp
 
     class CampVh extends RecyclerView.ViewHolder {
         TextView don_id,name,location,numberOfUnits;
+        ImageView image;
         public CampVh(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             location = itemView.findViewById(R.id.location);
             numberOfUnits = itemView.findViewById(R.id.numberOfUnits);
+            image = itemView.findViewById(R.id.image);
         }
 
         public void setData(final Campaigns Campaigns) {
             name.setText(Campaigns.getHospital_name());
-            numberOfUnits.setText(Campaigns.getNo_units_needed());
-            numberOfUnits.setText(Campaigns.getNo_units_needed());
+            location.setText(Campaigns.getLocation());
+            String x=Campaigns.getNo_units_needed() +" BLOOD UNIT NEEDED";
+            numberOfUnits.setText(x);
+            String y=Campaigns.getType();
+            if (y.equals("campaign")){
+                image.setImageResource(R.drawable.campaigns);
+
+            }else{
+                image.setImageResource(R.drawable.hospitals);
+            }
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

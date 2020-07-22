@@ -17,17 +17,18 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Calendar;
 
-public class Add_Request_Activity extends AppCompatActivity  {
-RadioButton radioOpos;
+public class Add_Request_Activity extends AppCompatActivity implements Blood_type_Activity.shareDataInterface {
 NumberPicker noOfUnits;
-EditText nOU;
+EditText nOU,bloodType;
+
     //BottomSheetDialog bottomSheetDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add__request_);
         //bottomSheetDialog=new BottomSheetDialog();
-nOU=findViewById(R.id.NoOfUnits);
+        nOU=findViewById(R.id.NoOfUnits);
+        bloodType=findViewById(R.id.bloodType);
         noOfUnits=findViewById(R.id.unitsNumber);
 
         //close add request activity
@@ -52,7 +53,8 @@ nOU=findViewById(R.id.NoOfUnits);
             @Override
             public void onClick(View v) {
               BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(Add_Request_Activity.this);
-              bottomSheetDialog.setContentView(R.layout.blood_type);
+              bottomSheetDialog.setContentView(R.layout.activity_blood_type);
+
               bottomSheetDialog.show();
             }
         });
@@ -69,7 +71,9 @@ nOU=findViewById(R.id.NoOfUnits);
     }
 
 
-
-
-
+    @Override
+    public void onButtonClicked(String text) {
+        System.out.println(text);
+        bloodType.setText(text);
+    }
 }
