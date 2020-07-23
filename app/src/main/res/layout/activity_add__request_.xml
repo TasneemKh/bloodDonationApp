@@ -193,25 +193,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/patient_file_no"
-                android:textSize="16sp"
+                android:textColorHint="#80242134"
+
+                android:textSize="18sp"
                 android:textStyle="normal"
                 app:boxBackgroundColor="@color/colorLight"
+                app:helperTextTextColor="#FFFFFF"
                 app:hintAnimationEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView15"
+                app:placeholderTextColor="#FFFFFF"
                 app:startIconContentDescription="id card icon"
                 app:startIconDrawable="@drawable/id_icon"
                 app:startIconTint="@color/colorMediumLight">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/patientFileNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="13dp"
                     android:autofillHints=""
-                    android:hint="@string/add_number"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:helptext="@string/add_number"
                     android:inputType="text"
+                    android:paddingTop="25dp"
                     android:textColorHint="@color/colorPrimaryDark"
                     android:textSize="12sp"
                     android:textStyle="bold" />

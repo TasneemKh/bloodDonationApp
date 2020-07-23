@@ -62,7 +62,7 @@
         android:layout_alignBottom="@+id/view_pager"
         android:layout_centerHorizontal="true"
         android:layout_margin="8dp"
-        android:layout_marginBottom="541dp"
+        android:layout_marginTop="32dp"
         android:gravity="center_vertical"
         android:padding="8dp"
         android:text="@string/start"

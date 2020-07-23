@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/red_wings_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".hospitalsPicker"/>
+        <activity android:name=".updatingPassword"></activity>
+        <activity android:name=".hospitalsPicker" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".TabActivity" />
         <activity android:name=".SplashMain" />
