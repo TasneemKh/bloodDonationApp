@@ -92,6 +92,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -121,7 +123,7 @@ public class map extends Fragment implements OnMapReadyCallback {
     SearchView sv_location;
     private double latitude, longitude;
     String hospital = "hospital";
-    GetNearbyPlacesData GetNearbyPlacesData = new GetNearbyPlacesData();
+    //GetNearbyPlacesData GetNearbyPlacesData = new GetNearbyPlacesData();
     private int ProximityRadius = 10000;
     ProgressDialog progressDialog;
     LatLng origin = new LatLng(31.4309, 34.3729);
@@ -131,6 +133,7 @@ public class map extends Fragment implements OnMapReadyCallback {
     RecyclerView bloodbank;
     campaignsAdapter campaignsAdapter;
     LinearLayoutManager  mLayoutManager;
+    Date date,date1;
     public map() {
     }
     @Override
@@ -329,25 +332,48 @@ recyclerView.setLayoutManager(horizontalLayoutManagaer);*/
         LatLng latLng0;
         reference = FirebaseDatabase.getInstance().getReference().child("Hospitals").child("Gaza");
         reference.addValueEventListener(new ValueEventListener() {
+            Boolean b=null;
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList list0= new ArrayList();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    b=true;
                     String Hospital_name = dataSnapshot1.child("Hospital_name").getValue(String.class);
                     String Type = dataSnapshot1.child("Type").getValue(String.class);
                     double latitude = dataSnapshot1.child("latitude").getValue(double.class);
                     double longitude = dataSnapshot1.child("longitude").getValue(double.class);
+
                     LatLng latLng0 = new LatLng(latitude,longitude);
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(latLng0);
                     markerOptions.title(Hospital_name);
                     if(Type.equals("campaign")) {
                         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                        /*String date0 = dataSnapshot1.child("endDate").getValue(String.class);
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            Calendar calendar=Calendar.getInstance();
+                            String currentDate=format.getDateInstance().format(calendar.getTime());
+                            date = format.parse(date0);
+                            date1 = format.parse(currentDate);
+                            Log.d(TAG, " "+date1);
+                            Log.d(TAG, " "+date);
+                            if ( date1.compareTo(date) < 0) {
+                                Log.d(TAG, " "+date1.compareTo(date));
+
+                                b=false;
+                                //  0 comes when two date are same,
+                                //  1 comes when date1 is higher then date
+                                // -1 comes when date1 is lower then date
+
+                            }
+                        } catch (ParseException e) { e.printStackTrace(); }*/
                     }else {
                         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
                     }
-                    mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
-
+                    if(b) {
+                        mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
+                    }
                 }
 
             }

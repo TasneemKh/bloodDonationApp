@@ -6,14 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <NumberPicker
-        android:id="@+id/unitsNumber"
-        android:layout_width="47dp"
-        android:layout_height="171dp"
-        android:layout_margin="16dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <NumberPicker
+            android:id="@+id/unitsNumber"
+            android:layout_width="47dp"
+            android:layout_height="171dp"
+            android:layout_margin="32dp" />
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
