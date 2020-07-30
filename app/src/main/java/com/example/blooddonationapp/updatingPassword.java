@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +22,10 @@ import com.google.firebase.auth.FirebaseUser;
 public class updatingPassword extends AppCompatActivity implements View.OnClickListener  {
     TextInputLayout oldpassword,newpassword;
     FirebaseUser user;
+    TextInputLayout til;
+    TextView email_rec;
+    Button recoverPassword;
+
     private static final String TAG = "update password";
     FirebaseAuth auth;
     String text2;
@@ -29,7 +34,56 @@ Button button;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_updating_password);
-        auth=FirebaseAuth.getInstance();
+        til = (TextInputLayout) findViewById(R.id.e_mail);
+        recoverPassword=findViewById(R.id.recoverPassword);
+        recoverPassword.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                email_rec=findViewById(R.id.e_mail1);
+                String emailAddress = email_rec.getText().toString();
+                if(!(emailAddress.isEmpty())) {
+                    auth.sendPasswordResetEmail(emailAddress)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        // Log.d(TAG, "Email sent.");
+                                        Toast.makeText(getApplicationContext(), "Please ,review your email", Toast.LENGTH_LONG).show();
+                                        Intent i = new Intent(getApplicationContext(), CheckEmail.class);
+                                        startActivity(i);
+                                    } else {
+                                        //  Toast.makeText(getApplicationContext(), "Please ,enter a valid email", Toast.LENGTH_LONG).show();
+                                        //  Log.d("MEDIA_PLAYER", new Exception().getMessage());
+                                        til.setError("Enter a valid email");
+                                        // Toast.makeText(getApplicationContext(), "Please ,enter a valid email", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+                }else{
+                    til.setError("Please ,fill the space");
+                }
+            }
+        });
+
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.back:
+                /*change to settings*/
+                startActivity(new Intent(this,TabActivity.class));
+                break;
+
+            default:
+                break;
+        }
+    }
+}
+/*   auth=FirebaseAuth.getInstance();
          user = auth.getCurrentUser();
 button=findViewById(R.id.save);
 button.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +96,7 @@ button.setOnClickListener(new View.OnClickListener() {
         newpassword=findViewById(R.id.newpassword);
         oldpassword.setEndIconActivated(false);
         newpassword.setEndIconActivated(false);
-
+*/
         /*oldpassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -51,9 +105,7 @@ button.setOnClickListener(new View.OnClickListener() {
                 }
             }
         });*/
-
-    }
-    public void updatePass (){
+          /*  public void updatePass (){
         String text=oldpassword.getEditText().getText().toString().trim();
          text2=newpassword.getEditText().getText().toString().trim();
         if(!(text.isEmpty()) && !(text2.isEmpty())){
@@ -87,19 +139,4 @@ System.out.println(user.getEmail());
                     Toast.LENGTH_SHORT).show();
 
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.back:
-                startActivity(new Intent(this,TabActivity.class));
-                break;
-            case R.id.save:
-                updatePass();
-                break;
-            default:
-                break;
-        }
-    }
-}
+    }*/

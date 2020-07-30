@@ -2,7 +2,9 @@ package com.example.blooddonationapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +22,14 @@ public class TabActivity extends AppCompatActivity implements BottomNavigationVi
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setItemIconTintList(null);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        String data = getIntent().getStringExtra("map");
+        if (data != null && data.contentEquals("1")) {
+            bottomNavigationView.setSelectedItemId(R.id.navigation_map);
+        }else{
+
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        }
+
 
     }
 

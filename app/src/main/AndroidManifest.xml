@@ -17,7 +17,12 @@
         android:roundIcon="@mipmap/red_wings_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".updatingPassword"></activity>
+        <activity android:name=".adviceSplash"></activity>
+        <activity android:name=".PreActivity1" />
+        <activity android:name=".PreActivity2" />
+        <activity android:name=".PreActivity0" />
+        <activity android:name=".viewbloodbankdesc" />
+        <activity android:name=".updatingPassword" />
         <activity android:name=".hospitalsPicker" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".TabActivity" />

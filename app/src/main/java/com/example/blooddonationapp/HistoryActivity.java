@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -40,7 +41,7 @@ import static android.view.View.GONE;
 public class HistoryActivity extends Fragment {
 
     private static final String TAG1 = "HistoryActivity";
-
+TextView empty;
     private Context mContext;
     RecyclerView recyclerView0;
     public static final String TAG = HistoryActivity.class.getSimpleName();
@@ -87,6 +88,7 @@ public class HistoryActivity extends Fragment {
         user = mAuth.getCurrentUser();
          uid = user.getUid();
         recyclerView0 = getView().findViewById(R.id.donation_rv);
+        empty=getView().findViewById(R.id.empty);
         recyclerView0.setHasFixedSize(true);
         mLayoutManager=new LinearLayoutManager(getContext());
         mLayoutManager.setReverseLayout(true);
@@ -96,47 +98,42 @@ public class HistoryActivity extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
                 list0 = new ArrayList<donationHistory>();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        System.out.println(dataSnapshot1.getValue());
+                        String donationType = dataSnapshot1.child("donationType").getValue(String.class);
+                        System.out.println(donationType);
+                        String placeOfDonation = dataSnapshot1.child("placeOfDonation").getValue(String.class);
+                        String dateOfDonation = dataSnapshot1.child("dateOfDonation").getValue(String.class);
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            date = format.parse(dateOfDonation);
+                            System.out.println(date);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        donationHistory p = new donationHistory(donationType, placeOfDonation, date);
 
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    System.out.println(dataSnapshot1.getValue());
-                    String donationType = dataSnapshot1.child("donationType").getValue(String.class);
-                    System.out.println(donationType);
-                    String placeOfDonation = dataSnapshot1.child("placeOfDonation").getValue(String.class);
-                    String dateOfDonation = dataSnapshot1.child("dateOfDonation").getValue(String.class);
-                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                    try {
-                         date = format.parse(dateOfDonation);
-                        System.out.println(date);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                        list0.add(p);
                     }
-                 // donationHistory p = dataSnapshot1.getValue(donationHistory.class);
-                   // donationHistory p =new donationHistory(donationType,placeOfDonation,dateOfDonation);
-                    donationHistory p =new donationHistory(donationType,placeOfDonation,date);
+                    donationAdapter = new donationAdapter(getActivity(), list0);
+                    int i = donationAdapter.getItemCount();
+                    System.out.println(i);
+                    pgsBar.setVisibility(GONE);
+                    empty.setVisibility(GONE);
+                    recyclerView0.setAdapter(donationAdapter);
+                }else{
+                    empty.setVisibility(View.VISIBLE);
+                    pgsBar.setVisibility(GONE);
 
-                    list0.add(p);
                 }
-                donationAdapter = new donationAdapter(getActivity(), list0);
-                int i=donationAdapter.getItemCount();
-                System.out.println(i);
-                pgsBar.setVisibility(GONE);
-                recyclerView0.setAdapter(donationAdapter);
-
             }
-            /* String name = value.getP_name();
-             String desig = value.getP_designation();
-             String email = value.getP_email();
-             String phone = value.getP_phone();
-             String address = value.getC_address();
-         }*/
+
             @Override
             public void onCancelled (@NonNull DatabaseError error){
 
             }
-
         });
         filter=getView().findViewById(R.id.filter);
         filter.setOnClickListener(new View.OnClickListener(){

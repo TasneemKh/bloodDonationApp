@@ -5,11 +5,23 @@ public class Campaigns {
     private String Hospital_name,Type;
     private int id,no_units_needed;
     private String location;
-public Campaigns( String Hospital_name,String Type,double latitude,double longitude){
+    private String workHours,workdays;
+    public Campaigns( String Hospital_name,String Type,double latitude,double longitude){
     setLatitude(latitude);
     setLongitude(longitude);
     setHospital_name(Hospital_name);
     setType(Type);
+    }
+    public Campaigns( String Hospital_name,String Type,int no_units_needed,String location,double latitude,double longitude, String workHours,String workdays){
+        setLatitude(latitude);
+        setLongitude(longitude);
+        setHospital_name(Hospital_name);
+        setType(Type);
+        setNo_units_needed(no_units_needed);
+        setLocation(location);
+        setWorkdays(workdays);
+        setWorkHours(workHours);
+
     }
     public Campaigns( String Hospital_name,String Type,int no_units_needed,String location){
         setNo_units_needed(no_units_needed);
@@ -72,5 +84,21 @@ public Campaigns( String Hospital_name,String Type,double latitude,double longit
     public void setLocation(String location) {
         this.location = location;
     }
+    public String getWorkHours() {
+        return workHours;
+    }
+
+    public void setWorkHours(String workHours) {
+        this.workHours = workHours;
+    }
+
+    public String getWorkdays() {
+        return workdays;
+    }
+
+    public void setWorkdays(String workdays) {
+        this.workdays = workdays;
+    }
+
 
 }

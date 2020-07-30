@@ -49,6 +49,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
             //open main activity
             //it need to  changed
             Intent intent = new Intent(SignIn.this , TabActivity.class);
+            intent.putExtra("map", " ");
             startActivity(intent);
         }
         initializeUI();
@@ -81,6 +82,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
                             FirebaseUser user = mAuth.getCurrentUser();
                             //change it into main activity
                             Intent intent = new Intent(SignIn.this, TabActivity.class);
+                            intent.putExtra("map", " ");
                             startActivity(intent);
                             finish();
                         }

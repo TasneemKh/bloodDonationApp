@@ -198,6 +198,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/patient_file_no"
+
                 android:textColorHint="#80242134"
                 app:errorEnabled="true"
                 android:textSize="18sp"

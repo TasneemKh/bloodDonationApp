@@ -1,6 +1,8 @@
 package com.example.blooddonationapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +71,20 @@ public class campaignsAdapter extends RecyclerView.Adapter<campaignsAdapter.Camp
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(context, Campaigns.getHospital_name(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(itemView.getContext() ,viewbloodbankdesc.class);
+                    intent.putExtra("id",Campaigns.getId());
+                    intent.putExtra("Location",Campaigns.getLocation());
+                    intent.putExtra("Hospital name",Campaigns.getHospital_name());
+                    intent.putExtra("Work Days",Campaigns.getWorkdays());
+                    intent.putExtra("Work Hours",Campaigns.getWorkHours());
+                    intent.putExtra("Latitude",Campaigns.getLatitude());
+                    intent.putExtra("Longitude",Campaigns.getLongitude());
+
+                   /* Bundle params = new Bundle();
+                    params.putDouble("Latitude", Campaigns.getLatitude());
+                    params.putDouble("Longitude", Campaigns.getLongitude());
+                    intent.putExtras(params);*/
+                    itemView.getContext().startActivity(intent);
 
                 }
             });

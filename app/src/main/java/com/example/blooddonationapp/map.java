@@ -71,6 +71,7 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -146,7 +147,38 @@ public class map extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
-        bloodBankRecycleView();
+        bloodbank = getView().findViewById(R.id.bloodbank);
+        bloodbank.setHasFixedSize(true);
+        mLayoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        bloodbank.setLayoutManager(mLayoutManager);
+        reference1 =  FirebaseDatabase.getInstance().getReference().child("Hospitals").child("Gaza");
+        reference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList list = new ArrayList<Campaigns>();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    System.out.println(dataSnapshot1.getValue());
+                    String Hospital_name = dataSnapshot1.child("Hospital_name").getValue(String.class);
+                    String Type = dataSnapshot1.child("Type").getValue(String.class);
+                    int no_units_needed= dataSnapshot1.child("no_units_needed").getValue(int.class);
+                    String location = dataSnapshot1.child("location").getValue(String.class);
+                    String workDays = dataSnapshot1.child("workDays").getValue(String.class);
+                    String workHours = dataSnapshot1.child("workHours").getValue(String.class);
+                    double latitude = dataSnapshot1.child("latitude").getValue(double.class);
+                    double longitude = dataSnapshot1.child("longitude").getValue(double.class);
+                    Campaigns p =new Campaigns(Hospital_name,Type,no_units_needed,location,latitude,longitude,workHours,workDays);
+                    list.add(p);
+                }
+                campaignsAdapter = new campaignsAdapter(getActivity(), list);
+                int i=campaignsAdapter.getItemCount();
+                System.out.println(i);
+                bloodbank.setAdapter(campaignsAdapter);
+            }
+            @Override
+            public void onCancelled (@NonNull DatabaseError error){
+
+            }
+        });
 
         // Construct a PlacesClient
         Places.initialize(getActivity().getApplicationContext(), getString(R.string.api_Key));
@@ -167,7 +199,7 @@ public class map extends Fragment implements OnMapReadyCallback {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 String location = sv_location.getQuery().toString();
-                String location1 = location + " " + "gaza";
+                String location1 = location ;
                 List<Address> addressList = null;
                 if (!TextUtils.isEmpty(location)) {
                     Geocoder geocoder = new Geocoder(getContext());
@@ -212,13 +244,12 @@ public class map extends Fragment implements OnMapReadyCallback {
                 return false;
             }
         });
-/*LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
-recyclerView.setLayoutManager(horizontalLayoutManagaer);*/
-    /*AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+
+    AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
             getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
     // Specify the types of place data to return.
-    autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+    autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG,Place.Field.ADDRESS));
 
     // Set up a PlaceSelectionListener to handle the response.
     autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -226,68 +257,22 @@ recyclerView.setLayoutManager(horizontalLayoutManagaer);*/
         public void onPlaceSelected(@NotNull Place place) {
             // TODO: Get info about the selected place.
             Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+            MarkerOptions markerOption = new MarkerOptions();
+            markerOption.title(place.getName());
+            markerOption.position(place.getLatLng());
+            mGoogleMap.addMarker(markerOption);
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
+            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+
         }
-
-
         @Override
         public void onError(@NotNull Status status) {
             // TODO: Handle the error.
             Log.i(TAG, "An error occurred: " + status);
         }
-    });*/
-    /*PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-            getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-
-    autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-
-        @Override
-        public void onPlaceSelected(Place place) {
-            mGoogleMap.clear();
-            mGoogleMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getName().toString()));
-            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
-            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 12.0f));
-        }
-
-        @Override
-        public void onError(Status status) {
-
-        }
-    });*/
-
+    });
 
     }
-    public void bloodBankRecycleView(){
-
-        bloodbank = getView().findViewById(R.id.bloodbank);
-        bloodbank.setHasFixedSize(true);
-        mLayoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        bloodbank.setLayoutManager(mLayoutManager);
-        reference1 =  FirebaseDatabase.getInstance().getReference().child("Hospitals").child("Gaza");
-        reference1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList list = new ArrayList<Campaigns>();
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    System.out.println(dataSnapshot1.getValue());
-                    String Hospital_name = dataSnapshot1.child("Hospital_name").getValue(String.class);
-                    String Type = dataSnapshot1.child("Type").getValue(String.class);
-                    int no_units_needed= dataSnapshot1.child("no_units_needed").getValue(int.class);
-                    String location = dataSnapshot1.child("location").getValue(String.class);
-                    Campaigns p =new Campaigns(Hospital_name,Type,no_units_needed,location);
-                    list.add(p);
-                }
-                campaignsAdapter = new campaignsAdapter(getActivity(), list);
-                int i=campaignsAdapter.getItemCount();
-                System.out.println(i);
-                bloodbank.setAdapter(campaignsAdapter);
-            }
-            @Override
-            public void onCancelled (@NonNull DatabaseError error){
-
-            }
-        });
-    }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode,

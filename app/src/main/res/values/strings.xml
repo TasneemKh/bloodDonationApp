@@ -118,5 +118,19 @@
     <string name="enter_your_old_password">Enter your old password</string>
     <string name="enter_your_new_password">Enter your new password</string>
     <string name="save">Save</string>
+    <string name="location">Location</string>
+    <string name="work_days">WORK DAYS</string>
+    <string name="work_hours">WORK HOURS</string>
+    <string name="textview">TextView</string>
+    <string name="empty">empty</string>
+    <string name="no_donation_yet">No donation yet</string>
+    <string name="pre_donation_check">Pre-donation Check</string>
+    <string name="period">period</string>
+    <string name="no">no</string>
+    <string name="yes">yes</string>
+    <string name="are_you_in_your_period_time">Are You in your period time ?</string>
+    <string name="do_you_take_any_medicine">Do you take any medicine ?</string>
+    <string name="do_you_have_any_disease">Do you have any disease ?</string>
+
 
 </resources>
