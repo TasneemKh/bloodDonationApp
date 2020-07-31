@@ -65,7 +65,7 @@
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right|end"
+                    android:layout_gravity="end"
                     android:layout_weight="1"
                     android:drawableStart="@drawable/date_icon"
                     android:drawableLeft="@drawable/date_icon" />

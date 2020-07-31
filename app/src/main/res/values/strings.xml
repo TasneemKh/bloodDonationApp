@@ -131,6 +131,10 @@
     <string name="are_you_in_your_period_time">Are You in your period time ?</string>
     <string name="do_you_take_any_medicine">Do you take any medicine ?</string>
     <string name="do_you_have_any_disease">Do you have any disease ?</string>
+    <string name="sorry_it_is_not_good_for_your_health_to_donate_in_the_time_of_your_period_wait_till_the_end_of_your_period">
+        Sorry, It is not good for your health to donate \n in the time of your period wait till the end of \n your period !!</string>
+    <string name="stay_warm_and_drink_lots_of_fluids">Stay Warm And Drink Lots Of Fluids</string>
+    <string name="advice">Advice</string>
 
 
 </resources>

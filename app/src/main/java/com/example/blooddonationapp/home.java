@@ -15,7 +15,7 @@ import android.widget.ImageButton;
 
 public class home extends Fragment {
 ImageButton req;
-Button b;
+Button b,b2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -38,6 +38,14 @@ Button b;
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity().getApplicationContext(), updatingPassword.class);
+                startActivity(i);
+            }
+        });
+        b2=getView().findViewById(R.id.button2);
+        b2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity().getApplicationContext(), PreActivity0.class);
                 startActivity(i);
             }
         });

@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/red_wings_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".adviceSplash"></activity>
+        <activity android:name=".DrugActivityCheck"></activity>
+        <activity android:name=".stayWarmActivity" />
+        <activity android:name=".adviceSplash" />
         <activity android:name=".PreActivity1" />
         <activity android:name=".PreActivity2" />
         <activity android:name=".PreActivity0" />
