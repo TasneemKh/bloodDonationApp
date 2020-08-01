@@ -135,6 +135,11 @@
         Sorry, It is not good for your health to donate \n in the time of your period wait till the end of \n your period !!</string>
     <string name="stay_warm_and_drink_lots_of_fluids">Stay Warm And Drink Lots Of Fluids</string>
     <string name="advice">Advice</string>
+    <string name="after_donating_you_should">After donating, You should :</string>
+    <string name="workout">work Out</string>
+    <string name="if_you_feel_lightheaded_lie_down_with_your_n_feet_up_until_the_feeling_passes">If you feel lightheaded, lie down with your \n feet up until the feeling passes.</string>
+    <string name="drink_extra_fluids_for_the_next_day_n_or_two">Drink extra fluids for the next day \n or two.</string>
+    <string name="avoid_strenuous_physical_activity_or_heavy_n_lifting_for_the_next_five_hours">Avoid strenuous physical activity or heavy \n lifting for the next five hours.</string>
 
 
 </resources>
