@@ -53,7 +53,9 @@ EditText nOU,bloodType,hospital,patientFileNo,notes;
     TextInputLayout fileNo,bloodTyp,bloodNo,hospitalName;
     DatabaseReference reference;
     String[] arrayPicker= new String[]{"x","xx"};
-    String[] arrayPickerType= new String[]{"o positive","o negative","A positive","A negative","B positive","B negative","AB positive","AB negative",};
+   // String[] arrayPickerType= new String[]{"o positive","o negative","A positive","A negative","B positive","B negative","AB positive","AB negative",};
+    String[] arrayPickerType= new String[]{"O+","O-","A+","A-","B+","B-","AB+","AB-",};
+
     private FirebaseAuth mAuth;
     FirebaseUser user;
 

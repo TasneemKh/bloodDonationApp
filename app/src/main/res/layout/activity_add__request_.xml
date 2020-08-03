@@ -18,39 +18,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_request"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="27sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.04"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.05" />
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-            <ImageButton
-                android:id="@+id/close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:contentDescription="@string/close"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.95"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.05"
-                app:srcCompat="@drawable/close_icon"
-                tools:ignore="VectorDrawableCompat" />
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="@string/add_request"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="27sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.04"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.05" />
+
+                <ImageButton
+                    android:id="@+id/close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:background="@null"
+                    android:contentDescription="@string/close"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.95"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.05"
+                    app:srcCompat="@drawable/close_icon"
+                    tools:ignore="VectorDrawableCompat" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView15"
@@ -74,17 +85,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:hint="@string/number_of_units"
-                app:errorEnabled="true"
                 android:textSize="16sp"
                 android:textStyle="normal"
                 app:boxBackgroundColor="@color/colorLight"
+                app:errorEnabled="true"
                 app:hintAnimationEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textField2"
                 app:startIconContentDescription="id card icon"
-                app:startIconDrawable="@drawable/units_no"
-                app:startIconTint="@color/colorMediumLight">
+                app:startIconDrawable="@drawable/units_no">
 
                 <EditText
                     android:id="@+id/NoOfUnits"
@@ -107,22 +117,21 @@
                 android:layout_marginTop="24dp"
                 android:hint="@string/hospital"
                 android:textSize="16sp"
-                app:errorEnabled="true"
                 android:textStyle="normal"
                 app:boxBackgroundColor="@color/colorLight"
+                app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textField3"
                 app:startIconContentDescription="id card icon"
-                app:startIconDrawable="@drawable/hospital"
-                app:startIconTint="@color/colorMediumLight">
+                app:startIconDrawable="@drawable/hospital">
 
                 <EditText
                     android:id="@+id/hospital"
-                    android:focusable="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints=""
+                    android:focusable="false"
                     android:hint="@string/which_hospital"
                     android:inputType="text"
                     android:textColorHint="@color/colorPrimaryDark"
@@ -138,15 +147,14 @@
                 android:layout_marginTop="24dp"
                 android:hint="@string/notes"
                 android:textSize="16sp"
-                app:errorEnabled="true"
                 android:textStyle="normal"
                 app:boxBackgroundColor="@color/colorLight"
+                app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textField4"
                 app:startIconContentDescription="id card icon"
-                app:startIconDrawable="@drawable/add_note"
-                app:startIconTint="@color/colorMediumLight">
+                app:startIconDrawable="@drawable/add_note">
 
                 <EditText
                     android:id="@+id/notes"
@@ -168,16 +176,15 @@
                 android:layout_marginTop="24dp"
                 android:hint="@string/blood_type_needed"
                 android:textSize="16sp"
-                app:errorEnabled="true"
                 android:textStyle="normal"
                 app:boxBackgroundColor="@color/colorLight"
+                app:errorEnabled="true"
                 app:hintAnimationEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textField"
                 app:startIconContentDescription="id card icon"
-                app:startIconDrawable="@drawable/blood_drop"
-                app:startIconTint="@color/colorMediumLight">
+                app:startIconDrawable="@drawable/blood_drop">
 
                 <EditText
                     android:id="@+id/bloodType"
@@ -200,10 +207,10 @@
                 android:hint="@string/patient_file_no"
 
                 android:textColorHint="#80242134"
-                app:errorEnabled="true"
                 android:textSize="18sp"
                 android:textStyle="normal"
                 app:boxBackgroundColor="@color/colorLight"
+                app:errorEnabled="true"
                 app:helperTextTextColor="#FFFFFF"
                 app:hintAnimationEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -211,10 +218,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView15"
                 app:placeholderTextColor="#FFFFFF"
                 app:startIconContentDescription="id card icon"
-                app:startIconDrawable="@drawable/id_icon"
-                app:startIconTint="@color/colorMediumLight">
+                app:startIconDrawable="@drawable/id_icon">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/patientFileNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -235,6 +241,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
+                android:gravity="center|center_horizontal|center_vertical"
                 android:paddingLeft="70dp"
                 android:paddingRight="70dp"
                 android:text="@string/add_req"
@@ -244,7 +251,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textField5" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
 

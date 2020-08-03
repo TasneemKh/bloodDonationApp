@@ -140,6 +140,11 @@
     <string name="if_you_feel_lightheaded_lie_down_with_your_n_feet_up_until_the_feeling_passes">If you feel lightheaded, lie down with your \n feet up until the feeling passes.</string>
     <string name="drink_extra_fluids_for_the_next_day_n_or_two">Drink extra fluids for the next day \n or two.</string>
     <string name="avoid_strenuous_physical_activity_or_heavy_n_lifting_for_the_next_five_hours">Avoid strenuous physical activity or heavy \n lifting for the next five hours.</string>
+    <string name="it_s_time_to_n_give">IT\'S TIME TO
+         \n GIVE</string>
+    <string name="book">Book</string>
+    <string name="tasneem_khrais">Tasneem khrais</string>
+    <string name="settings">settings</string>
 
 
 </resources>
