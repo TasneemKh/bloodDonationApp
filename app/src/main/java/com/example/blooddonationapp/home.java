@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.blooddonationapp.Activity.MainActivityF;
+
 
 public class home extends Fragment {
 ImageButton req;
@@ -45,7 +47,7 @@ Button b,b2;
         b2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity().getApplicationContext(), PreActivity0.class);
+                Intent i = new Intent(getActivity().getApplicationContext(), MainActivityF.class);
                 startActivity(i);
             }
         });

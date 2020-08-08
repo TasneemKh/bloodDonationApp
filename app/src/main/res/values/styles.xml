@@ -21,6 +21,8 @@
         <item name="android:button">@android:color/transparent</item>
 
     </style>
+    <style name="mydialog"></style>
+
 
     <style name="TextInputDesign">
         <item name="android:layout_width">match_parent</item>

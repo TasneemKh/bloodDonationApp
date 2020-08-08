@@ -80,6 +80,71 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/patient_file_no"
+
+                android:textColorHint="#80242134"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:boxBackgroundColor="@color/colorLight"
+                app:errorEnabled="true"
+                app:helperTextTextColor="#FFFFFF"
+                app:hintAnimationEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView15"
+                app:placeholderTextColor="#FFFFFF"
+                app:startIconContentDescription="id card icon"
+                app:startIconDrawable="@drawable/id_icon">
+
+                <EditText
+                    android:id="@+id/patientFileNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="13dp"
+                    android:autofillHints=""
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:hint="@string/add_number"
+                    android:inputType="text"
+                    android:paddingTop="25dp"
+                    android:textColorHint="@color/colorPrimaryDark"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:hint="@string/blood_type_needed"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                app:boxBackgroundColor="@color/colorLight"
+                app:errorEnabled="true"
+                app:hintAnimationEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textField"
+                app:startIconContentDescription="id card icon"
+                app:startIconDrawable="@drawable/blood_drop">
+
+                <EditText
+                    android:id="@+id/bloodType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/blood_type_needed"
+                    android:focusable="false"
+                    android:hint="@string/select_one_please"
+                    android:inputType="text"
+                    android:textColorHint="@color/colorPrimaryDark"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textField3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,76 +234,12 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textField2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:hint="@string/blood_type_needed"
-                android:textSize="16sp"
-                android:textStyle="normal"
-                app:boxBackgroundColor="@color/colorLight"
-                app:errorEnabled="true"
-                app:hintAnimationEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textField"
-                app:startIconContentDescription="id card icon"
-                app:startIconDrawable="@drawable/blood_drop">
-
-                <EditText
-                    android:id="@+id/bloodType"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="@string/blood_type_needed"
-                    android:focusable="false"
-                    android:hint="@string/select_one_please"
-                    android:inputType="text"
-                    android:textColorHint="@color/colorPrimaryDark"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/patient_file_no"
-
-                android:textColorHint="#80242134"
-                android:textSize="18sp"
-                android:textStyle="normal"
-                app:boxBackgroundColor="@color/colorLight"
-                app:errorEnabled="true"
-                app:helperTextTextColor="#FFFFFF"
-                app:hintAnimationEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView15"
-                app:placeholderTextColor="#FFFFFF"
-                app:startIconContentDescription="id card icon"
-                app:startIconDrawable="@drawable/id_icon">
-
-                <EditText
-                    android:id="@+id/patientFileNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="13dp"
-                    android:autofillHints=""
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:hint="@string/add_number"
-                    android:inputType="text"
-                    android:paddingTop="25dp"
-                    android:textColorHint="@color/colorPrimaryDark"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 android:gravity="center|center_horizontal|center_vertical"

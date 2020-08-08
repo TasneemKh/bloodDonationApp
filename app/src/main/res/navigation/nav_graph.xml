@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/preDonationFragment1">
+    <fragment
+        android:id="@+id/preDonationFragment1"
+        android:name="com.example.blooddonationapp.Fragment.PreDonationFragment1"
+        android:label="fragment_pre_donation1"
+        tools:layout="@layout/fragment_pre_donation1" >
+        <action
+            android:id="@+id/action_preDonationFragment1_to_preDonationFragment1Yes"
+            app:destination="@id/preDonationFragment1Yes" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/preDonationFragment1No"
+        android:name="com.example.blooddonationapp.Fragment.PreDonationFragment1No"
+        android:label="fragment_pre_donation_fragment1_no"
+        tools:layout="@layout/fragment_pre_donation_fragment1_no" >
+        <action
+            android:id="@+id/action_preDonationFragment1No_to_checkDrugsListFragment"
+            app:destination="@id/checkDrugsListFragment" />
+        <action
+            android:id="@+id/action_preDonationFragment1No_to_DonationTypeActivity"
+            app:destination="@id/DonationTypeActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/preDonationFragment1Yes"
+        android:name="com.example.blooddonationapp.Fragment.PreDonationFragment1Yes"
+        android:label="fragment_pre_donation_fragment1_yes"
+        tools:layout="@layout/fragment_pre_donation_fragment1_yes" >
+        <action
+            android:id="@+id/action_preDonationFragment1Yes_to_preDonationFragment1No"
+            app:destination="@id/preDonationFragment1No" />
+        <action
+            android:id="@+id/action_preDonationFragment1Yes_to_DonationTypeActivity"
+            app:destination="@id/DonationTypeActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkDrugsListFragment"
+        android:name="com.example.blooddonationapp.Fragment.CheckDrugsListFragment"
+        android:label="fragment_check_drugs_list"
+        tools:layout="@layout/fragment_check_drugs_list" />
+    <activity
+        android:id="@+id/DonationTypeActivity"
+        android:name="com.example.blooddonationapp.Activity.DonationTypeActivity"
+        android:label="activity_donation_type"
+        tools:layout="@layout/activity_donation_type" />
+
+    <fragment
+        android:id="@+id/advice"
+        android:name="com.example.blooddonationapp.Activity.AfterDonationActivity"
+        android:label="activity_donation"
+        tools:layout="@layout/activity_after_donation" >
+
+    </fragment>
+
+</navigation>

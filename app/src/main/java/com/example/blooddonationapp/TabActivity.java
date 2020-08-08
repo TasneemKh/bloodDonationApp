@@ -41,7 +41,7 @@ public class TabActivity extends AppCompatActivity implements BottomNavigationVi
     }
     home home=new home();
     map map=new map();
-    MapsActivity mapsActivity=new MapsActivity();
+    //MapsActivity mapsActivity=new MapsActivity();
     notification notification=new notification();
     HistoryActivity history=new HistoryActivity();
     @Override

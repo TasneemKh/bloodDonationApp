@@ -102,6 +102,8 @@ EditText nOU,bloodType,hospital,patientFileNo,notes;
                 data.put("numberOfUnits",Input2);
                 data.put("hospital",Input3);
                 data.put("notes",Input4);
+                String timeStamp=new SimpleDateFormat("dd/MM/YY HH:mm").format(Calendar.getInstance().getTime());
+                data.put("createdAt",timeStamp);
                 FirebaseDatabase.getInstance().getReference().child("request").child(uid).child(id).setValue(data)
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -114,7 +116,11 @@ EditText nOU,bloodType,hospital,patientFileNo,notes;
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(getApplicationContext(), "Your request is added", Toast.LENGTH_SHORT).show();
-
+                              /*  nOU.setText(" ");
+                                bloodType.setText(" ");
+                                hospital.setText(" ");
+                                patientFileNo.setText(" ");
+                                notes.setText(" ");*/
                                 Intent intent = new Intent(Add_Request_Activity.this, TabActivity.class);
                                 startActivity(intent);
                             }

@@ -6,6 +6,10 @@
     <color name="colorLight">#FAF8F0</color>
     <color name="colorMediumLight">#E4DFCF</color>
 
+    <color name="colorFont">#CC656D</color>
+    <color name="background">#FAF8F0</color>
+    <color name="divider">#D8D8D8</color>
+
     <color name="transparent">#8A2626</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="lightGray">#9b9faa</color>
