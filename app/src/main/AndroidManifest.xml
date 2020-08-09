@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/red_wings_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DrugActivityCheck"></activity>
+        <activity android:name=".EditProActivity"></activity>
+        <activity android:name=".DrugActivityCheck" />
         <activity android:name=".viewbloodbankdesc" />
         <activity android:name=".updatingPassword" />
         <activity android:name=".HistoryActivity" />
@@ -25,15 +26,12 @@
         <activity android:name=".SplashMain" />
         <activity android:name=".Blood_type_Activity" />
         <activity android:name=".Add_Request_Activity" />
-        <activity android:name=".Activity.DonationPrivateActivity"/>
-
+        <activity android:name=".Activity.DonationPrivateActivity" />
         <activity android:name=".Activity.DonationPublicActivity" />
         <activity android:name=".Activity.AfterDonationActivity" />
-        <activity android:name=".Activity.DonationTypeActivity">
-        </activity>
+        <activity android:name=".Activity.DonationTypeActivity"></activity>
         <activity android:name=".Activity.PreDonationCheckActivity" />
-        <activity android:name=".Activity.MainActivityF">
-        </activity>
+        <activity android:name=".Activity.MainActivityF"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

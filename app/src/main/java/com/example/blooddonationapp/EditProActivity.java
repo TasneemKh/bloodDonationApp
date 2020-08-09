@@ -1,0 +1,285 @@
+package com.example.blooddonationapp;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatTextView;
+
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.NumberPicker;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.example.blooddonationapp.Activity.DonationPublicActivity;
+import com.example.blooddonationapp.Activity.DonationTypeActivity;
+import com.example.blooddonationapp.Activity.PreDonationCheckActivity;
+import com.example.blooddonationapp.Model.Hospital;
+import com.example.blooddonationapp.Model.PublicRequest;
+import com.example.blooddonationapp.Model.Request;
+import com.example.blooddonationapp.Model.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import io.paperdb.Paper;
+
+public class EditProActivity extends AppCompatActivity implements View.OnClickListener {
+    private AppCompatTextView email,birthday,blood_type,gender,Weight,phone;
+    AppCompatEditText fullname;
+    ImageButton back;
+    boolean flag = false;
+    private FirebaseAuth mAuth;
+    String uid;
+    FirebaseUser user;
+    FirebaseDatabase database;
+    DatabaseReference ref;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_pro);
+
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        uid = user.getUid();
+        System.out.println(uid);
+        ref = database.getReference("User");
+        initView();
+    }
+    private void initView() {
+        fullname = (AppCompatEditText) findViewById(R.id.fullname);
+        email = (AppCompatTextView) findViewById(R.id.email);
+        birthday = (AppCompatTextView) findViewById(R.id.birthday);
+        birthday.setOnClickListener(this);
+        blood_type = (AppCompatTextView) findViewById(R.id.blood_type);
+        blood_type.setOnClickListener(this);
+        gender = (AppCompatTextView) findViewById(R.id.gender);
+        gender.setOnClickListener(this);
+        Weight = (AppCompatTextView) findViewById(R.id.Weight);
+        phone = (AppCompatTextView) findViewById(R.id.phone);
+        FirebaseDatabase.getInstance().getReference().child("User").child(uid)
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    fullname.setText(dataSnapshot1.child("userName").getValue(String.class));
+                    email.setText(dataSnapshot1.child("email").getValue(String.class));
+                    birthday.setText(dataSnapshot1.child("birthday").getValue(String.class));
+                    phone.setText(dataSnapshot1.child("phoneNumber").getValue(String.class));
+                    gender.setText(dataSnapshot1.child("gender").getValue(String.class));
+                    blood_type.setText(dataSnapshot1.child("bloodType").getValue(String.class));
+                  //  Weight.setText(Integer.toString(dataSnapshot1.child("weight").getValue(int.class)));
+
+                    }
+                }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
+        //mTitle = (AppCompatTextView) findViewById(R.id.title);
+        back =  (ImageButton) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //change to settings
+                startActivity(new Intent(EditProActivity.this, TabActivity.class));
+            }
+        });
+
+    }
+    private boolean Validations() {
+
+        if (TextUtils.isEmpty(fullname.getText().toString())) {
+            Toast.makeText(this, "please add your name", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(email.getText().toString())) {
+            Toast.makeText(this, "please add your name", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(birthday.getText().toString())) {
+            Toast.makeText(this, "please select the birthday date", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(blood_type.getText().toString())) {
+            Toast.makeText(this, "please select your blood type", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if (TextUtils.isEmpty(gender.getText().toString())) {
+            Toast.makeText(this, "please select your gender", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if (TextUtils.isEmpty(Weight.getText().toString())) {
+            Toast.makeText(this, "please add your Weight", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if (TextUtils.isEmpty(phone.getText().toString())) {
+            Toast.makeText(this, "please add your phone", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            default:
+                break;
+
+            case R.id.birthday:
+                final Calendar myCalendar = Calendar.getInstance();
+                DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                          int dayOfMonth) {
+                        // TODO Auto-generated method stub
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH, monthOfYear);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                        String strDateFormat = "dd/MM/YYYY";
+                        DateFormat dateFormat = new SimpleDateFormat(strDateFormat, new Locale("en"));
+                        String formattedDate = dateFormat.format(myCalendar.getTime());
+
+                        birthday.setText(formattedDate);
+                    }
+                };
+                new DatePickerDialog(this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+                break;
+            case R.id.blood_type:
+                String[] pickerVals = new String[]{"O+","O-","A+","A-","B+","B-","AB+","AB-"};
+                flag = false;
+                showMyDialog(pickerVals, 7, "Blood Type Picker");
+                break;
+            case R.id.gender:
+                String[] pickerVal = new String[]{"Male","Female"};
+                flag = false;
+                showMyDialog(pickerVal, 1, "Gender Picker");
+                break;
+            case R.id.edit:
+                if (Validations()) {
+                    User user = new User(fullname.getText().toString(),
+                                        email.getText().toString(),
+                                        birthday.getText().toString(),
+                                        phone.getText().toString(),
+                                        Weight.getText().toString(),
+                                        blood_type.getText().toString(),
+                                        gender.getText().toString());
+
+                  /*  Paper.book().write("gender", gender);
+                    Paper.book().write("bloodType", blood_type);
+                    Paper.book().write("weight", Weight);
+                    Paper.book().write("phoneNumber", phone);
+                    Paper.book().write("fullname", fullname);
+                    Paper.book().write("email", email);
+                    Paper.book().write("birthday", birthday);
+
+                    user.setBloodType((String) Paper.book().read("bloodType"));
+                    user.setPhoneNumber((String) Paper.book().read("phone"));
+                    user.setGender((String) Paper.book().read("gender"));
+                    user.setWeight(mWeightNumber.getText().toString());
+*/
+                    SaveToDataBase(user);
+                }
+
+                break;
+
+        }
+    }
+    private void SaveToDataBase(User user) {
+        /*Map<String,Object> map = new HashMap<>();
+
+        map.put("bloodType",user.getBloodType());
+        map.put("phoneNumber",user.getPhoneNumber());
+        map.put("gender",user.getGender());
+        map.put("weight",user.getWeight());
+        map.put("userName",user.getFullname());
+        map.put("email",user.getEmail());
+        map.put("birthday",user.getBirthday());
+
+
+        ref.child(uid).updateChildren(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Paper.book().write("userId", uid);
+                Toast.makeText(getApplicationContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(EditProActivity.this, TabActivity.class));
+                finish();
+            }
+        });
+*/
+
+    }
+    private void showMyDialog(final String[] pickerVals, int i, String titles) {
+        final Dialog dialog = new Dialog(this, R.style.mydialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dialog_piker);
+        final NumberPicker picker1 = dialog.findViewById(R.id.numberpicker_main_picker);
+        final AppCompatTextView title = dialog.findViewById(R.id.title);
+        AppCompatImageButton close = dialog.findViewById(R.id.close);
+
+        title.setText(titles);
+
+        picker1.setMaxValue(i);
+        picker1.setMinValue(0);
+
+        picker1.setDisplayedValues(pickerVals);
+
+        picker1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                int valuePicker1 = picker1.getValue();
+                if (flag) {
+                    blood_type.setText(pickerVals[valuePicker1]);
+                } else {
+                    gender.setText(pickerVals[valuePicker1]);
+                }
+                // dialog.dismiss();
+            }
+        });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        Window window = dialog.getWindow();
+        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    }
+}

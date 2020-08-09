@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="26dp"
         android:gravity="start"
@@ -79,25 +79,25 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:src="@drawable/ic_mask_group_2" />
 
         <View
-            android:layout_width="2dp"
-            android:layout_height="60dp"
+            android:layout_width="1dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:background="@android:color/darker_gray" />
+            android:background="#85E4DFCF"
+            android:layout_marginLeft="8dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:layout_marginLeft="18dp"
+            android:layout_marginLeft="12dp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -137,8 +137,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_margin="8dp"
-        android:background="@android:color/darker_gray" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorMediumLight" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -151,18 +154,25 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_width="20dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
-            android:layout_margin="16dp"
-            android:src="@drawable/blood_drop" />
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_shape" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:background="#85E4DFCF"
+            android:layout_marginLeft="8dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:layout_marginLeft="18dp"
+            android:layout_marginLeft="12dp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -171,7 +181,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="start"
-                android:text="Blood Type needed"
+                android:text="Donation Type needed"
                 android:textAlignment="textStart"
                 android:textColor="#242134"
                 android:textSize="16sp"
@@ -202,8 +212,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_margin="8dp"
-        android:background="@android:color/darker_gray" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorMediumLight" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -214,25 +227,25 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:src="@drawable/ic_mask_group_152" />
 
         <View
-            android:layout_width="2dp"
-            android:layout_height="60dp"
+            android:layout_width="1dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:background="@android:color/darker_gray" />
+            android:background="#85E4DFCF"
+            android:layout_marginLeft="8dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:layout_marginLeft="18dp"
+            android:layout_marginLeft="12dp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -272,8 +285,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_margin="8dp"
-        android:background="@android:color/darker_gray" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorMediumLight" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -284,25 +300,25 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:src="@drawable/ic_path_149" />
 
         <View
-            android:layout_width="2dp"
-            android:layout_height="60dp"
+            android:layout_width="1dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:background="@android:color/darker_gray" />
+            android:background="#85E4DFCF"
+            android:layout_marginLeft="8dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:layout_marginLeft="18dp"
+            android:layout_marginLeft="12dp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -342,8 +358,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_margin="8dp"
-        android:background="@android:color/darker_gray" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorMediumLight" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -354,25 +373,25 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:src="@drawable/ic_time" />
 
         <View
-            android:layout_width="2dp"
-            android:layout_height="60dp"
+            android:layout_width="1dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:background="@android:color/darker_gray" />
+            android:background="#85E4DFCF"
+            android:layout_marginLeft="8dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:layout_marginLeft="18dp"
+            android:layout_marginLeft="12dp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -412,8 +431,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_margin="8dp"
-        android:background="@android:color/darker_gray" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/colorMediumLight" />
 
     <Button
         android:id="@+id/submit"

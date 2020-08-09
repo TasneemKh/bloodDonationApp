@@ -3,6 +3,7 @@ package com.example.blooddonationapp.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -77,7 +78,7 @@ public class DonationPublicActivity extends AppCompatActivity implements View.On
      * Pre-donation Check
      */
     private AppCompatTextView mTitle;
-    private ImageButton mBack;
+     ImageButton mBack;
     private Toolbar mToolbar;
 
     @Override
@@ -91,7 +92,7 @@ public class DonationPublicActivity extends AppCompatActivity implements View.On
         user = mAuth.getCurrentUser();
         uid = user.getUid();
         ref = database.getReference("Hospitals");
-        mTitle.setText("Donate to the public");
+       // mTitle.setText("Donate to the public");
     }
 
     private void initView() {
@@ -106,7 +107,13 @@ public class DonationPublicActivity extends AppCompatActivity implements View.On
         mPublice = (Button) findViewById(R.id.publice);
         mPublice.setOnClickListener(this);
         //mTitle = (AppCompatTextView) findViewById(R.id.title);
-        mBack =  findViewById(R.id.back);
+        mBack =  (ImageButton) findViewById(R.id.back);
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DonationPublicActivity.this,DonationTypeActivity.class));
+            }
+        });
        // mToolbar = (Toolbar) findViewById(R.id.toolbar);
     }
 
@@ -133,6 +140,9 @@ public class DonationPublicActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             default:
+                break;
+            case R.id.back:
+                startActivity(new Intent(this,DonationTypeActivity.class));
                 break;
             case R.id.blood_type:
                 String[] pickerVals = new String[]{"blood", "platelets"};

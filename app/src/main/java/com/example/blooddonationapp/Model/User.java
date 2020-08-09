@@ -7,6 +7,10 @@ public class User {
     private String identityNumber;
     private String gender;
     private int drugDurations;
+    private String fullname,email,birthday;
+
+
+
 
     public User() {
     }
@@ -19,7 +23,15 @@ public class User {
         this.gender = gender;
         this.drugDurations = drugDurations;
     }
-
+    public User(String fullname,String email,String birthday,String phoneNumber, String weight, String bloodType, String gender) {
+        this.fullname = fullname;
+        this.email = email;
+        this.birthday = birthday;
+        this.phoneNumber = phoneNumber;
+        this.weight = weight;
+        this.bloodType = bloodType;
+        this.gender = gender;
+    }
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -66,5 +78,28 @@ public class User {
 
     public void setDrugDurations(int drugDurations) {
         this.drugDurations = drugDurations;
+    }
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 }

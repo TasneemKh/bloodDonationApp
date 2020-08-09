@@ -3,6 +3,7 @@ package com.example.blooddonationapp.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
@@ -82,7 +84,7 @@ public class DonationPrivateActivity extends AppCompatActivity implements View.O
      * Pre-donation Check
      */
     private AppCompatTextView mTitle;
-    private AppCompatImageView mBack;
+     ImageButton mBack;
     private Toolbar mToolbar;
 
 
@@ -94,7 +96,7 @@ public class DonationPrivateActivity extends AppCompatActivity implements View.O
 
         database = FirebaseDatabase.getInstance();
         ref = database.getReference("Hospitals");
-        mTitle.setText("Donate to a particular person ");
+       // mTitle.setText("Donate to a particular person ");
     }
 
     private void initView() {
@@ -110,9 +112,15 @@ public class DonationPrivateActivity extends AppCompatActivity implements View.O
         mTimee.setOnClickListener(this);
         mSubmit = (Button) findViewById(R.id.submit);
         mSubmit.setOnClickListener(this);
-        mTitle = (AppCompatTextView) findViewById(R.id.title);
-        mBack = (AppCompatImageView) findViewById(R.id.back);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        //mTitle = (AppCompatTextView) findViewById(R.id.title);
+        mBack =  findViewById(R.id.back);
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DonationPrivateActivity.this,DonationTypeActivity.class));
+            }
+        });
+       // mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
     }
@@ -143,6 +151,9 @@ public class DonationPrivateActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             default:
+                break;
+            case R.id.back:
+               // startActivity(new Intent(this,DonationTypeActivity.class));
                 break;
             case R.id.patient_name:
                 final Dialog dialog = new Dialog(this);

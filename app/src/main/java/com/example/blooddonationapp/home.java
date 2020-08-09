@@ -17,7 +17,7 @@ import com.example.blooddonationapp.Activity.MainActivityF;
 
 public class home extends Fragment {
 ImageButton req;
-Button b,b2;
+Button b,b2 , edit;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -48,6 +48,14 @@ Button b,b2;
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity().getApplicationContext(), MainActivityF.class);
+                startActivity(i);
+            }
+        });
+        edit=getView().findViewById(R.id.edit);
+        edit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity().getApplicationContext(), EditProActivity.class);
                 startActivity(i);
             }
         });
