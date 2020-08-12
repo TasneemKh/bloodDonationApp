@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class updatingPassword extends AppCompatActivity implements View.OnClickL
     TextInputLayout til;
     TextView email_rec;
     Button recoverPassword;
+    ImageButton back;
 
     private static final String TAG = "update password";
     FirebaseAuth auth;
@@ -50,7 +52,7 @@ Button button;
                                     if (task.isSuccessful()) {
                                         // Log.d(TAG, "Email sent.");
                                         Toast.makeText(getApplicationContext(), "Please ,review your email", Toast.LENGTH_LONG).show();
-                                        Intent i = new Intent(getApplicationContext(), CheckEmail.class);
+                                        Intent i = new Intent(getApplicationContext(), SettingActivity.class);
                                         startActivity(i);
                                     } else {
                                         //  Toast.makeText(getApplicationContext(), "Please ,enter a valid email", Toast.LENGTH_LONG).show();
@@ -65,6 +67,8 @@ Button button;
                 }
             }
         });
+        back=findViewById(R.id.back);
+        back.setOnClickListener(this);
 
 
     }
@@ -75,7 +79,7 @@ Button button;
         switch(v.getId()){
             case R.id.back:
                 /*change to settings*/
-                startActivity(new Intent(this,TabActivity.class));
+                startActivity(new Intent(this,SettingActivity.class));
                 break;
 
             default:

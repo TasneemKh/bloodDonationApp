@@ -16,7 +16,7 @@ import com.example.blooddonationapp.Activity.MainActivityF;
 
 
 public class home extends Fragment {
-ImageButton req;
+ImageButton req,settings;
 Button b,b2 , edit;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,6 +28,8 @@ Button b,b2 , edit;
     public void onViewCreated(View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
         req=getView().findViewById(R.id.imageButton);
+        settings=getView().findViewById(R.id.settings);
+
         req.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -35,14 +37,21 @@ Button b,b2 , edit;
                 startActivity(i);
             }
         });
-        b=getView().findViewById(R.id.button);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity().getApplicationContext(), SettingActivity.class);
+                startActivity(i);
+            }
+        });
+       /* b=getView().findViewById(R.id.button);
         b.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity().getApplicationContext(), updatingPassword.class);
                 startActivity(i);
             }
-        });
+        });*/
         b2=getView().findViewById(R.id.button2);
         b2.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -51,14 +60,14 @@ Button b,b2 , edit;
                 startActivity(i);
             }
         });
-        edit=getView().findViewById(R.id.edit);
+        /*edit=getView().findViewById(R.id.edit);
         edit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity().getApplicationContext(), EditProActivity.class);
                 startActivity(i);
             }
-        });
+        });*/
     }
 }
 

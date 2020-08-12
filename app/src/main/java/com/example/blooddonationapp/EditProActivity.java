@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -53,8 +54,8 @@ import java.util.Map;
 import io.paperdb.Paper;
 
 public class EditProActivity extends AppCompatActivity implements View.OnClickListener {
-    private AppCompatTextView email,birthday,blood_type,gender,Weight,phone;
-    AppCompatEditText fullname;
+    private AppCompatTextView birthday,blood_type,gender;
+    AppCompatEditText fullname,Weight,phone,email;
     ImageButton back;
     boolean flag = false;
     private FirebaseAuth mAuth;
@@ -62,46 +63,57 @@ public class EditProActivity extends AppCompatActivity implements View.OnClickLi
     FirebaseUser user;
     FirebaseDatabase database;
     DatabaseReference ref;
-
+    String x1,x2,x3,x4,x5,x6;
+Button edit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_pro);
 
-        database = FirebaseDatabase.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
-        uid = user.getUid();
-        System.out.println(uid);
-        ref = database.getReference("User");
+
+       // database = FirebaseDatabase.getInstance();
         initView();
     }
     private void initView() {
         fullname = (AppCompatEditText) findViewById(R.id.fullname);
-        email = (AppCompatTextView) findViewById(R.id.email);
+        email = (AppCompatEditText) findViewById(R.id.email);
         birthday = (AppCompatTextView) findViewById(R.id.birthday);
         birthday.setOnClickListener(this);
         blood_type = (AppCompatTextView) findViewById(R.id.blood_type);
         blood_type.setOnClickListener(this);
         gender = (AppCompatTextView) findViewById(R.id.gender);
         gender.setOnClickListener(this);
-        Weight = (AppCompatTextView) findViewById(R.id.Weight);
-        phone = (AppCompatTextView) findViewById(R.id.phone);
+        Weight = (AppCompatEditText) findViewById(R.id.Weight);
+        phone = (AppCompatEditText) findViewById(R.id.phone);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        System.out.println(uid);
+        uid = user.getUid();
+        Toast.makeText(EditProActivity.this, uid, Toast.LENGTH_SHORT).show();
+
         FirebaseDatabase.getInstance().getReference().child("User").child(uid)
-                .addValueEventListener(new ValueEventListener() {
+        .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    fullname.setText(dataSnapshot1.child("userName").getValue(String.class));
-                    email.setText(dataSnapshot1.child("email").getValue(String.class));
-                    birthday.setText(dataSnapshot1.child("birthday").getValue(String.class));
-                    phone.setText(dataSnapshot1.child("phoneNumber").getValue(String.class));
-                    gender.setText(dataSnapshot1.child("gender").getValue(String.class));
-                    blood_type.setText(dataSnapshot1.child("bloodType").getValue(String.class));
-                  //  Weight.setText(Integer.toString(dataSnapshot1.child("weight").getValue(int.class)));
+                   x1=dataSnapshot.child("userName").getValue(String.class);  fullname.setText(x1);
+                   x2=dataSnapshot.child("email").getValue(String.class);        email.setText(x2);
 
-                    }
+                    x3=dataSnapshot.child("birthday").getValue(String.class);
+                    x4=dataSnapshot.child("phoneNumber").getValue(String.class);
+                    x5=dataSnapshot.child("gender").getValue(String.class);
+                    x6=dataSnapshot.child("bloodType").getValue(String.class);
+                    String x7=dataSnapshot.child("weight").getValue(String.class);
+                    birthday.setText(x3);
+                    phone.setText(x4);
+                    gender.setText(x5);
+                    blood_type.setText(x6);
+                     Weight.setText(x7);
+                  //  Weight.setText(Integer.toString(dataSnapshot1.child("weight").getValue(int.class)));
+                    Toast.makeText(EditProActivity.this, "view"+x1+x2+x6+x7, Toast.LENGTH_SHORT).show();
+
+                }
                 }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -110,15 +122,45 @@ public class EditProActivity extends AppCompatActivity implements View.OnClickLi
 
         });
 
+
         //mTitle = (AppCompatTextView) findViewById(R.id.title);
         back =  (ImageButton) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //change to settings
-                startActivity(new Intent(EditProActivity.this, TabActivity.class));
+                startActivity(new Intent(EditProActivity.this, SettingActivity.class));
             }
         });
+        edit =   findViewById(R.id.edit);
+        edit.setOnClickListener(this);
+       /* edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference().child("User").child(uid)
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                    dataSnapshot1.getRef().child("userName").setValue(fullname.getText().toString());
+                                    dataSnapshot1.getRef().child("email").setValue(email.getText().toString());
+                                    dataSnapshot1.getRef().child("birthday").setValue(birthday.getText().toString());
+                                    dataSnapshot1.getRef().child("phoneNumber").setValue(phone.getText().toString());
+                                    dataSnapshot1.getRef().child("gender").setValue(gender.getText().toString());
+                                    dataSnapshot1.getRef().child("bloodType").setValue(blood_type.getText().toString());
+                                    //  Weight.setText(Integer.toString(dataSnapshot1.child("weight").getValue(int.class)));
+
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+
+                        });
+            }
+        });*/
 
     }
     private boolean Validations() {
@@ -144,6 +186,15 @@ public class EditProActivity extends AppCompatActivity implements View.OnClickLi
         }else if (TextUtils.isEmpty(phone.getText().toString())) {
             Toast.makeText(this, "please add your phone", Toast.LENGTH_SHORT).show();
             return false;
+        }else if (phone.getText().toString().length() < 10) {
+            Toast.makeText(this, "Phone Number must be 10 number ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(!phone.equals("059")){
+            if(!phone.equals("056")){
+                Toast.makeText(this, "Phone Number begin with 059 or 056 ", Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
         return true;
     }
@@ -180,7 +231,7 @@ public class EditProActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.blood_type:
                 String[] pickerVals = new String[]{"O+","O-","A+","A-","B+","B-","AB+","AB-"};
-                flag = false;
+                flag = true;
                 showMyDialog(pickerVals, 7, "Blood Type Picker");
                 break;
             case R.id.gender:
@@ -190,13 +241,26 @@ public class EditProActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.edit:
                 if (Validations()) {
-                    User user = new User(fullname.getText().toString(),
+                    DatabaseReference updateData = FirebaseDatabase.getInstance().getReference().child("User").child(uid);
+                    updateData.child("userName").setValue(fullname.getText().toString());
+                    updateData.child("email").setValue(email.getText().toString());
+                    updateData.child("birthday").setValue(birthday.getText().toString());
+                    updateData.child("phoneNumber").setValue(phone.getText().toString());
+                    updateData.child("gender").setValue(gender.getText().toString());
+                    updateData.child("bloodType").setValue(blood_type.getText().toString());
+                    updateData.child("Weight").setValue(Weight.getText().toString());
+
+                    Toast.makeText(this, "" + fullname.getText().toString() + " updated", Toast.LENGTH_SHORT).show();
+                }
+                // if (Validations()) {
+
+                    /*User user = new User(fullname.getText().toString(),
                                         email.getText().toString(),
                                         birthday.getText().toString(),
                                         phone.getText().toString(),
                                         Weight.getText().toString(),
                                         blood_type.getText().toString(),
-                                        gender.getText().toString());
+                                        gender.getText().toString());*/
 
                   /*  Paper.book().write("gender", gender);
                     Paper.book().write("bloodType", blood_type);
@@ -211,8 +275,9 @@ public class EditProActivity extends AppCompatActivity implements View.OnClickLi
                     user.setGender((String) Paper.book().read("gender"));
                     user.setWeight(mWeightNumber.getText().toString());
 */
-                    SaveToDataBase(user);
-                }
+                   // SaveToDataBase(user);
+
+            //    }
 
                 break;
 

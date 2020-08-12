@@ -55,6 +55,7 @@ TextView empty;
     View view;
     String uid;
     ProgressBar pgsBar;
+
     private LinearLayoutManager mLayoutManager;
 
     public HistoryActivity() {

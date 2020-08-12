@@ -145,6 +145,26 @@
     <string name="book">Book</string>
     <string name="tasneem_khrais">Tasneem khrais</string>
     <string name="settings">settings</string>
+    !--    ***   view user request interface text   ****  -->
+    <string name="paragraph_request">I need your help my friend, needs a lot of blood unit
+        due to the accident he faced, help me to make him get back to his family save and healthy.
+    </string>
+
+    <!--    ***   about interface text   ****  -->
+    <string name="about_paragraph">We collect information about how you use our Products,
+        such as the types of content that you view or engage with,the
+        features you use, the actions you take, the people or accounts you interact with
+        and the time, frequency and duration of your activities. For example, we log when you\'re
+        using and have last used our Products, and what posts, videos and other content you view
+        on our Products. We also collect information about how you use features such
+        as our camera.
+    </string>
+
+    <!--    ***   contact us interface text   ****  -->
+    <string name="contact_us_paragraph">Whether you have a questions about feature
+         or concerns .Our team is ready to answer
+         all your questions
+    </string>
 
 
 </resources>

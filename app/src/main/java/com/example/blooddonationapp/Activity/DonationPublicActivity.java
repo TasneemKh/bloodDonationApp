@@ -74,12 +74,16 @@ public class DonationPublicActivity extends AppCompatActivity implements View.On
     DatabaseReference ref;
     FirebaseDatabase database;
     boolean flag = false;
+    String f;
     /**
      * Pre-donation Check
      */
     private AppCompatTextView mTitle;
      ImageButton mBack;
     private Toolbar mToolbar;
+
+    List<Hospital> hospitalq = new ArrayList<>();
+    private int postions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,6 +164,7 @@ public class DonationPublicActivity extends AppCompatActivity implements View.On
                                     for (DataSnapshot snapshot1 : s.getChildren()) {
                                         Hospital hospital = snapshot1.getValue(Hospital.class);
                                         hospitals.add(hospital.getHospital_name());
+                                        hospitalq.add(hospital);
                                     }
                                 }
 
@@ -221,12 +226,32 @@ public class DonationPublicActivity extends AppCompatActivity implements View.On
                 timePickerDialog.show();
                 break;
             case R.id.publice:
+                String uid = user.getUid();
+                DatabaseReference ref2 = database.getReference("User").child(uid);
+                ref2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot s : snapshot.getChildren()) {
+                            f= snapshot.child("userName").getValue(String.class);
+                            Toast.makeText(DonationPublicActivity.this, " "+f, Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 if (Validations()) {
-                    DatabaseReference ref1 = database.getReference("reqDonation").push();
+
+                    DatabaseReference ref1 = database.getReference("reqDonation").
+                            child(hospitalq.get(postions).getId()).child(uid).push();
                     String id = ref1.getKey();
-                    Request request = new PublicRequest(mDatee.getText().toString(),
-                            mTimee.getText().toString(), mBloodType.getText().toString(),
-                            mHospital.getText().toString(), "public", uid, id);
+                    Request request = new PublicRequest(mDatee.getText().toString(), mTimee.getText().toString(),
+                            mBloodType.getText().toString(), mHospital.getText().toString(), "public",
+                            uid, id,f);
+                    Toast.makeText(DonationPublicActivity.this, " "+f, Toast.LENGTH_SHORT).show();
 
                     ref1.setValue(request)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {

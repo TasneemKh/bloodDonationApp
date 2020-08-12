@@ -8,11 +8,14 @@ public class Request {
     private String Type;
     private String userId;
     private String id;
+    private String userName;
+
+
 
     public Request() {
     }
 
-    public Request(String date, String time, String bloodType, String hospital, String type, String userId, String id) {
+    public Request(String date, String time, String bloodType, String hospital, String type, String userId, String id,String userName) {
         Date = date;
         Time = time;
         this.bloodType = bloodType;
@@ -20,6 +23,7 @@ public class Request {
         Type = type;
         this.userId = userId;
         this.id = id;
+        this.userName=userName;
     }
 
     public String getDate() {
@@ -76,5 +80,12 @@ public class Request {
 
     public void setId(String id) {
         this.id = id;
+    }
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

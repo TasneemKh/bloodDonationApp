@@ -78,7 +78,7 @@ public class DonationPrivateActivity extends AppCompatActivity implements View.O
 
     DatabaseReference ref;
     FirebaseDatabase database;
-
+String f;
     boolean flag = false;
     /**
      * Pre-donation Check
@@ -87,6 +87,8 @@ public class DonationPrivateActivity extends AppCompatActivity implements View.O
      ImageButton mBack;
     private Toolbar mToolbar;
 
+    List<Hospital> hospitalq = new ArrayList<>();
+    private int postions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,6 +205,7 @@ public class DonationPrivateActivity extends AppCompatActivity implements View.O
                                     for (DataSnapshot snapshot1 : s.getChildren()) {
                                         Hospital hospital = snapshot1.getValue(Hospital.class);
                                         hospitals.add(hospital.getHospital_name());
+                                        hospitalq.add(hospital);
                                     }
                                 }
 
@@ -262,7 +265,7 @@ public class DonationPrivateActivity extends AppCompatActivity implements View.O
                 timePickerDialog.show();
                 break;
             case R.id.submit:
-                if (Validations()) {
+               /* if (Validations()) {
                     DatabaseReference ref1 = database.getReference("reqDonation").push();
                     String id = ref1.getKey();
                     String uid = user.getUid();
@@ -284,7 +287,45 @@ public class DonationPrivateActivity extends AppCompatActivity implements View.O
                                 public void onFailure(@NonNull Exception e) {
                                 }
                             });
+
+                }*/
+                String uid = user.getUid();
+                DatabaseReference ref2 = database.getReference("User").child(uid);
+                ref2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot s : snapshot.getChildren()) {
+                            f= s.child("userName").getValue(String.class);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                if (Validations()) {
+
+                    DatabaseReference ref1 = database.getReference("reqDonation")
+                            .child(hospitalq.get(postions).getId()).child(uid).push();
+                    String id = ref1.getKey();
+
+                    Request request = new PrivateRequest(mDatee.getText().toString(), mTimee.getText().toString(), mBloodType.getText().toString(), mHospital.getText().toString(), "private", uid, id,f, mPatientName.getText().toString());
+
+                    ref1.setValue(request)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(DonationPrivateActivity.this, "add successfully", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
                 }
+
 
 
                 break;

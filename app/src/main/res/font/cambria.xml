@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--    we use app keyword with API lower than 26 , but with 26 or higher we write android-->
+
+    <font
+        app:font="@font/cambria_regular"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        tools:ignore="ResourceCycle"
+    />
+    <font
+        app:font="@font/cambria_italic"
+        app:fontStyle="italic"
+        app:fontWeight="400"
+        tools:ignore="ResourceCycle"
+    />
+    <font
+        app:font="@font/cambria_bold"
+        app:fontStyle="normal"
+        app:fontWeight="700"
+        tools:ignore="ResourceCycle"
+    />
+    <font
+        app:font="@font/cambriaz"
+        app:fontStyle="italic"
+        app:fontWeight="700"
+        tools:ignore="ResourceCycle"
+        />
+
+</font-family>
