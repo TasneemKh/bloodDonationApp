@@ -54,7 +54,8 @@ public class donationAdapter extends RecyclerView.Adapter<donationAdapter.donati
 
         public void setData(final donationHistory donationHistory) {
             // std_id.setText(donationHistory.getId());
-            Donation_type.setText(donationHistory.getDonationType());
+            String x=donationHistory.getDonationType()+" "+"Donation";
+            Donation_type.setText(x);
             bloodbank.setText(donationHistory.getPlaceOfDonation());
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             date.setText(dateFormat.format(donationHistory.getDateOfDonation()));

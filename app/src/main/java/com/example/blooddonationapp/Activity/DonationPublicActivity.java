@@ -163,8 +163,11 @@ public class DonationPublicActivity extends AppCompatActivity implements View.On
                                 if (s.hasChildren()) {
                                     for (DataSnapshot snapshot1 : s.getChildren()) {
                                         Hospital hospital = snapshot1.getValue(Hospital.class);
-                                        hospitals.add(hospital.getHospital_name());
-                                        hospitalq.add(hospital);
+
+                                        if (hospital.getType().equals("hospital")){
+                                            hospitals.add(hospital.getHospital_name());
+                                            hospitalq.add(hospital);
+                                        }
                                     }
                                 }
 
@@ -245,13 +248,29 @@ public class DonationPublicActivity extends AppCompatActivity implements View.On
                 });
                 if (Validations()) {
 
-                    DatabaseReference ref1 = database.getReference("reqDonation").
+                   /* DatabaseReference ref1 = database.getReference("reqDonation").
                             child(hospitalq.get(postions).getId()).child(uid).push();
                     String id = ref1.getKey();
                     Request request = new PublicRequest(mDatee.getText().toString(), mTimee.getText().toString(),
                             mBloodType.getText().toString(), mHospital.getText().toString(), "public",
                             uid, id,f);
                     Toast.makeText(DonationPublicActivity.this, " "+f, Toast.LENGTH_SHORT).show();
+
+                    ref1.setValue(request)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(DonationPublicActivity.this, "add successfully", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });*/
+                    DatabaseReference ref1 = database.getReference("ReservationDon").child(hospitalq.get(postions).getUid()).child(uid);
+//                    String id = ref1.push().getKey();
+                    Request request = new PublicRequest(mDatee.getText().toString(), mTimee.getText().toString(), mBloodType.getText().toString(), mHospital.getText().toString(), "public", uid);
 
                     ref1.setValue(request)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {

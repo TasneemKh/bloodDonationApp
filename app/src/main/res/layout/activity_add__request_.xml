@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLight"
     android:padding="24dp"
-    tools:context=".Add_Request_Activity">
+    android:background="@color/colorLight">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -68,6 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:gravity="start"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -77,162 +77,381 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textField"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/patient_file_no"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
 
-                android:textColorHint="#80242134"
-                android:textSize="18sp"
-                android:textStyle="normal"
-                app:boxBackgroundColor="@color/colorLight"
-                app:errorEnabled="true"
-                app:helperTextTextColor="#FFFFFF"
-                app:hintAnimationEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView15"
-                app:placeholderTextColor="#FFFFFF"
-                app:startIconContentDescription="id card icon"
-                app:startIconDrawable="@drawable/id_icon">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_mask_group_2" />
 
-                <EditText
-                    android:id="@+id/patientFileNo"
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="#85E4DFCF" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="13dp"
-                    android:autofillHints=""
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:hint="@string/add_number"
-                    android:inputType="text"
-                    android:paddingTop="25dp"
-                    android:textColorHint="@color/colorPrimaryDark"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textField2"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginLeft="12dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="start"
+                        android:text="Enter patient file number"
+                        android:textAlignment="textStart"
+                        android:textColor="#242134"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/patientFileNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@null"
+                        android:gravity="start"
+                        android:hint="add number"
+                        android:textAlignment="textStart"
+                        android:textColor="#A1043353"
+                        android:textColorHint="#A1043353"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/colorMediumLight" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:hint="@string/blood_type_needed"
-                android:textSize="16sp"
-                android:textStyle="normal"
-                app:boxBackgroundColor="@color/colorLight"
-                app:errorEnabled="true"
-                app:hintAnimationEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textField"
-                app:startIconContentDescription="id card icon"
-                app:startIconDrawable="@drawable/blood_drop">
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/bloodType"
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_shape" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="#85E4DFCF" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autofillHints="@string/blood_type_needed"
-                    android:focusable="false"
-                    android:hint="@string/select_one_please"
-                    android:inputType="text"
-                    android:textColorHint="@color/colorPrimaryDark"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_marginStart="18dp"
+                    android:layout_marginLeft="12dp"
+                    android:orientation="vertical">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="start"
+                        android:text="Blood Type needed"
+                        android:textAlignment="textStart"
+                        android:textColor="#242134"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/include" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textField3"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/bloodType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="start"
+                        android:hint="select one please "
+                        android:textAlignment="textStart"
+                        android:textColor="#A1043353"
+                        android:textColorHint="#A1043353"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/colorMediumLight" />
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:hint="@string/number_of_units"
-                android:textSize="16sp"
-                android:textStyle="normal"
-                app:boxBackgroundColor="@color/colorLight"
-                app:errorEnabled="true"
-                app:hintAnimationEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textField2"
-                app:startIconContentDescription="id card icon"
-                app:startIconDrawable="@drawable/units_no">
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/NoOfUnits"
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/units_no" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="#85E4DFCF" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autofillHints=""
-                    android:focusable="false"
-                    android:hint="@string/select_one_please"
-                    android:inputType="text"
-                    android:textColorHint="@color/colorPrimaryDark"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_marginStart="18dp"
+                    android:layout_marginLeft="12dp"
+                    android:orientation="vertical">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="start"
+                        android:text="@string/number_of_units"
+                        android:textAlignment="textStart"
+                        android:textColor="#242134"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/include" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textField4"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/NoOfUnits"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="start"
+                        android:hint="@string/select_one_please"
+                        android:textAlignment="textStart"
+                        android:textColor="#A1043353"
+                        android:textColorHint="#A1043353"
+                        android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/colorMediumLight" />
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:hint="@string/hospital"
-                android:textSize="16sp"
-                android:textStyle="normal"
-                app:boxBackgroundColor="@color/colorLight"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textField3"
-                app:startIconContentDescription="id card icon"
-                app:startIconDrawable="@drawable/hospital">
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/hospital"
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_mask_group_152" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="#85E4DFCF" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autofillHints=""
-                    android:focusable="false"
-                    android:hint="@string/which_hospital"
-                    android:inputType="text"
-                    android:textColorHint="@color/colorPrimaryDark"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_marginStart="18dp"
+                    android:layout_marginLeft="12dp"
+                    android:orientation="vertical">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="start"
+                        android:text="Hospital"
+                        android:textAlignment="textStart"
+                        android:textColor="#242134"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/include" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textField5"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/hospital"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="start"
+                        android:hint="@string/which_hospital"
+                        android:textAlignment="textStart"
+                        android:textColor="#A1043353"
+                        android:textColorHint="#A1043353"
+                        android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/colorMediumLight" />
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:hint="@string/notes"
-                android:textSize="16sp"
-                android:textStyle="normal"
-                app:boxBackgroundColor="@color/colorLight"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textField4"
-                app:startIconContentDescription="id card icon"
-                app:startIconDrawable="@drawable/add_note">
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/notes"
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/add_notes" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="#85E4DFCF" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autofillHints=""
-                    android:hint="@string/add_notes"
-                    android:inputType="text"
-                    android:textColorHint="@color/colorPrimaryDark"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_marginStart="18dp"
+                    android:layout_marginLeft="12dp"
+                    android:orientation="vertical">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="start"
+                        android:text="@string/notes"
+                        android:textAlignment="textStart"
+                        android:textColor="#242134"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@null"
+                        android:gravity="start"
+                        android:hint="@string/add_notes"
+                        android:textAlignment="textStart"
+                        android:textColor="#A1043353"
+                        android:textColorHint="#A1043353"
+                        android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/colorMediumLight" />
+
+
+
+
+
 
 
             <Button
@@ -254,8 +473,4 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

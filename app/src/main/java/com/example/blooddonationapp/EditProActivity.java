@@ -248,7 +248,7 @@ Button edit;
                     updateData.child("phoneNumber").setValue(phone.getText().toString());
                     updateData.child("gender").setValue(gender.getText().toString());
                     updateData.child("bloodType").setValue(blood_type.getText().toString());
-                    updateData.child("Weight").setValue(Weight.getText().toString());
+                    updateData.child("weight").setValue(Weight.getText().toString());
 
                     Toast.makeText(this, "" + fullname.getText().toString() + " updated", Toast.LENGTH_SHORT).show();
                 }

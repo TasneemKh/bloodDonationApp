@@ -3,6 +3,8 @@ package com.example.blooddonationapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -49,8 +51,10 @@ import java.util.UUID;
 
 public class Add_Request_Activity extends AppCompatActivity /*implements Blood_type_Activity.shareDataInterface */{
 NumberPicker noOfUnits;
-EditText nOU,bloodType,hospital,patientFileNo,notes;
-    TextInputLayout fileNo,bloodTyp,bloodNo,hospitalName;
+//EditText nOU,bloodType,hospital,patientFileNo,notes;
+    //TextInputLayout fileNo,bloodTyp,bloodNo,hospitalName;
+    AppCompatEditText patientFileNo,notes;
+    AppCompatTextView nOU,bloodType,hospital;
     DatabaseReference reference;
     String[] arrayPicker= new String[]{"x","xx"};
    // String[] arrayPickerType= new String[]{"o positive","o negative","A positive","A negative","B positive","B negative","AB positive","AB negative",};
@@ -102,7 +106,7 @@ EditText nOU,bloodType,hospital,patientFileNo,notes;
                 data.put("numberOfUnits",Input2);
                 data.put("hospital",Input3);
                 data.put("notes",Input4);
-                String timeStamp=new SimpleDateFormat("dd/MM/YY HH:mm").format(Calendar.getInstance().getTime());
+                String timeStamp=new SimpleDateFormat("dd/MM/YYYY HH:mm").format(Calendar.getInstance().getTime());
                 data.put("createdAt",timeStamp);
                 FirebaseDatabase.getInstance().getReference().child("request").child(uid).child(id).setValue(data)
                         .addOnFailureListener(new OnFailureListener() {
@@ -174,46 +178,53 @@ EditText nOU,bloodType,hospital,patientFileNo,notes;
         });
     }
     private boolean validateFileNumber(){
-        fileNo=findViewById(R.id.textField);
+       // fileNo=findViewById(R.id.textField);
         String Input = patientFileNo.getText().toString().trim();
         if (Input.isEmpty()) {
-            fileNo.setError("Field can't be empty");
+           // fileNo.setError("Field can't be empty");.
+            Toast.makeText(getApplicationContext(), "Field can't be empty", Toast.LENGTH_SHORT).show();
             return false;
         }else {
-            fileNo.setError(null);
+           // fileNo.setError(null);
             return true;
         }
     }
     private boolean validateBloodType(){
-        bloodTyp=findViewById(R.id.textField2);
+       // bloodTyp=findViewById(R.id.textField2);
         String Input = bloodType.getText().toString().trim();
         if (Input.isEmpty()) {
-            bloodTyp.setError("Field can't be empty");
+         //   bloodTyp.setError("Field can't be empty");
+            Toast.makeText(getApplicationContext(), "Field can't be empty", Toast.LENGTH_SHORT).show();
+
             return false;
         }else {
-            bloodTyp.setError(null);
+           // bloodTyp.setError(null);
             return true;
         }
     }
     private boolean validateBloodNo(){
-        bloodNo=findViewById(R.id.textField3);
+        //bloodNo=findViewById(R.id.textField3);
         String Input = nOU.getText().toString().trim();
         if (Input.isEmpty()) {
-            bloodNo.setError("Field can't be empty");
+           // bloodNo.setError("Field can't be empty");
+            Toast.makeText(getApplicationContext(), "Field can't be empty", Toast.LENGTH_SHORT).show();
+
             return false;
         }else {
-            bloodNo.setError(null);
+            //bloodNo.setError(null);
             return true;
         }
     }
     private boolean validateHospital(){
-        hospitalName=findViewById(R.id.textField4);
+       // hospitalName=findViewById(R.id.textField4);
         String Input = hospital.getText().toString().trim();
         if (Input.isEmpty()) {
-            hospitalName.setError("Field can't be empty");
+            //hospitalName.setError("Field can't be empty");
+            Toast.makeText(getApplicationContext(), "Field can't be empty", Toast.LENGTH_SHORT).show();
+
             return false;
         }else {
-            hospitalName.setError(null);
+            //hospitalName.setError(null);
             return true;
         }
     }

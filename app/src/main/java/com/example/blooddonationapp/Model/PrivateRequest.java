@@ -5,11 +5,14 @@ public class PrivateRequest extends Request {
 
     public PrivateRequest() {
     }
-
-    public PrivateRequest(String date, String time, String bloodType, String hospital, String type, String userId, String id,String userName, String fileNuM) {
-        super(date, time, bloodType, hospital, type, userId, id, userName);
+    public PrivateRequest(String date, String time, String bloodType, String hospital, String type, String userId, String fileNuM) {
+        super(date, time, bloodType, hospital, type, userId);
         this.fileNuM = fileNuM;
     }
+   /* public PrivateRequest(String date, String time, String bloodType, String hospital, String type, String userId, String id,String userName, String fileNuM) {
+        super(date, time, bloodType, hospital, type, userId, id, userName);
+        this.fileNuM = fileNuM;
+    }*/
 
     public String getUserId() {
         return fileNuM;

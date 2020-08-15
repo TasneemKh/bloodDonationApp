@@ -145,7 +145,7 @@
     <string name="book">Book</string>
     <string name="tasneem_khrais">Tasneem khrais</string>
     <string name="settings">settings</string>
-    !--    ***   view user request interface text   ****  -->
+    !-- *** view user request interface text **** -->
     <string name="paragraph_request">I need your help my friend, needs a lot of blood unit
         due to the accident he faced, help me to make him get back to his family save and healthy.
     </string>
@@ -165,6 +165,16 @@
          or concerns .Our team is ready to answer
          all your questions
     </string>
+    <string name="_10_request">10 request</string>
+    <string name="second">second</string>
+    <string name="counter_img">counter img</string>
+    <string name="_5_donation">5 donation</string>
+    <string name="_0">0</string>
+    <string name="timer">timer</string>
+    <string name="day">Day</string>
+    <string name="hour">hour</string>
+    <string name="minute">minute</string>
+    <string name="why_should_i_wait">Why should I wait ?</string>
 
 
 </resources>

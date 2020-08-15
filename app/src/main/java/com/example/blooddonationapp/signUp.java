@@ -179,6 +179,8 @@ public class signUp extends AppCompatActivity implements View.OnClickListener  {
                             data.put("userName",userName.getText().toString().trim());
                             data.put("birthday",birthTxt.getText().toString().trim());
                             data.put("uid",uid);
+                            data.put("reminderPeriod",0);
+                            data.put("drugDurations",0);
                             data.put("email",emailF);
                             data.put("createdAt",new Date().getTime());
                             FirebaseDatabase.getInstance().getReference().child("User").child(uid).setValue(data)

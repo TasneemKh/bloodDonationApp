@@ -3,7 +3,7 @@ package com.example.blooddonationapp.Model;
 public class Request {
     private String Date;
     private String Time;
-    private String bloodType;
+    private String donType;
     private String Hospital;
     private String Type;
     private String userId;
@@ -15,7 +15,7 @@ public class Request {
     public Request() {
     }
 
-    public Request(String date, String time, String bloodType, String hospital, String type, String userId, String id,String userName) {
+   /* public Request(String date, String time, String bloodType, String hospital, String type, String userId, String id,String userName) {
         Date = date;
         Time = time;
         this.bloodType = bloodType;
@@ -24,7 +24,16 @@ public class Request {
         this.userId = userId;
         this.id = id;
         this.userName=userName;
-    }
+    }*/
+   public Request(String date, String time, String donType, String hospital, String type, String userId) {
+       Date = date;
+       Time = time;
+       this.donType = donType;
+       Hospital = hospital;
+       Type = type;
+       this.userId = userId;
+//        this.id = id;
+   }
 
     public String getDate() {
         return Date;
@@ -42,12 +51,12 @@ public class Request {
         Time = time;
     }
 
-    public String getBloodType() {
-        return bloodType;
+    public String getDonType() {
+        return donType;
     }
 
-    public void setBloodType(String bloodType) {
-        this.bloodType = bloodType;
+    public void setDonType(String donType) {
+        this.donType = donType;
     }
 
     public String getHospital() {
