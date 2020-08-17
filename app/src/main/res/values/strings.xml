@@ -175,6 +175,8 @@
     <string name="hour">hour</string>
     <string name="minute">minute</string>
     <string name="why_should_i_wait">Why should I wait ?</string>
+    <string name="to_whom_i_can_donate">To whom I can
+        donate?</string>
 
 
 </resources>

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.blooddonationapp.Activity.PreDonationCheckActivity;
 import com.example.blooddonationapp.Model.User;
 import com.example.blooddonationapp.R;
+import com.example.blooddonationapp.SharedPreferencesApp;
 import com.example.blooddonationapp.TabActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -128,6 +129,7 @@ public class Fragment5 extends Fragment implements View.OnClickListener {
             public void onSuccess(Void aVoid) {
                 Paper.book().write("userId", uid);
                 Toast.makeText(getContext(), "Add successfully", Toast.LENGTH_SHORT).show();
+                SharedPreferencesApp.getInstance(getContext()).saveData("flag","done");
                 getActivity().startActivity(new Intent(getContext(), PreDonationCheckActivity.class));
                 getActivity().finish();
             }

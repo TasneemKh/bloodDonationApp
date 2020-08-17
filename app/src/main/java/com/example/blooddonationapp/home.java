@@ -1,19 +1,27 @@
 package com.example.blooddonationapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.CountDownTimer;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,10 +46,10 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 public class home extends Fragment {
-        ImageButton req,settings;
-        Button b,b2 , edit,timer;
-        private FirebaseAuth mAuth;
-        FirebaseUser user;
+    ImageButton req,settings;
+    Button b,b2 , edit;
+    private FirebaseAuth mAuth;
+    FirebaseUser user;
     private EditText mEditTextInput;
     private TextView mTextViewCountDown,reminderPeriod,drugDurations,day,hour,min,sec,textView35;
     private Button mButtonStartPause;
@@ -51,19 +59,33 @@ public class home extends Fragment {
     private long mTimeLeftInMillis;
     private long mEndTime;
     String uid;
-        TextView name;/*,reminderPeriod,drugDurations;*/
+    int tot;
+    Boolean flag =false;
+   // ViewPager viewPager;
+    TextView name;/*,reminderPeriod,drugDurations;*/
     ConstraintLayout bookLay,downCount;
+    private ViewPager viewPager;
+    private MyViewPagerAdapter myViewPagerAdapter;
+    private LinearLayout dotsLayout;
+    private TextView[] dots;
+    Button viewMore;
+    private int[] layouts;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
     @Override
     public void onViewCreated(View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
-        uiInitlize();
        /* bookLay.setVisibility(View.VISIBLE);
         downCount.setVisibility(View.INVISIBLE);*/
+
+//        viewPager.setAdapter(new CustomPagerAdapter(this));
+
+        uiInitlize();
+
         uid =FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseDatabase.getInstance().getReference().child("User").child(uid).addValueEventListener(new ValueEventListener(){
             @Override
@@ -76,10 +98,15 @@ public class home extends Fragment {
                         drugDurations.setText(Integer.toString(drugDurations0));
                         int reminderPeriod0=snapshot.child("reminderPeriod").getValue(Integer.class);
                         reminderPeriod.setText(Integer.toString(reminderPeriod0));
-                        int tot= (drugDurations0+reminderPeriod0)*1440;
-                      mEditTextInput.setText(Integer.toString(tot));
-                       // mEditTextInput.setText(Integer.toString(1));
-                        mButtonStartPause.performClick();
+
+                        if (!flag){
+                            tot= (drugDurations0+reminderPeriod0)*1440;
+                            mEditTextInput.setText(Integer.toString(tot));
+                            // mEditTextInput.setText(Integer.toString(1));
+                            mButtonStartPause.performClick();
+                            flag=true;
+                        }
+
 
                     }
                 }else{
@@ -91,6 +118,7 @@ public class home extends Fragment {
 
             }
         });
+
 
 
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
@@ -140,13 +168,7 @@ public class home extends Fragment {
                 startActivity(i);
             }
         });
-        timer.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity().getApplicationContext(), timer.class);
-                startActivity(i);
-            }
-        });
+
         textView35.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,13 +176,40 @@ public class home extends Fragment {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
             }
         });
+        viewPager = (ViewPager) getView().findViewById(R.id.view_pager);
+        dotsLayout = (LinearLayout)getView(). findViewById(R.id.layoutDots);
+       // btnSkip = (Button) findViewById(R.id.btn_skip);
+        //btnNext = (Button) findViewById(R.id.btn_next);
+      // ButtonDesign= getActivity().findViewById(R.id.viewMore);
+
+        // layouts of all welcome sliders
+        // add few more layouts if you want
+        layouts = new int[]{
+                R.layout.activity_x0,
+                R.layout.activity_x1,
+                R.layout.activity_x,
+        };
+
+        // adding bottom dots
+        addBottomDots(0);
+
+        // making notification bar transparent
+        changeStatusBarColor();
+
+        myViewPagerAdapter = new MyViewPagerAdapter();
+        viewPager.setAdapter(myViewPagerAdapter);
+        viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+
+
+
+
 
     }
     public void uiInitlize(){
         req=getView().findViewById(R.id.imageButton);
         settings=getView().findViewById(R.id.settings);
-        b2=getView().findViewById(R.id.button2);
-        timer=getView().findViewById(R.id.timer);
+        b2=getView().findViewById(R.id.book);
+       // timer=getView().findViewById(R.id.timer);
         name=getView().findViewById(R.id.name);
         bookLay=getView().findViewById(R.id.bookLay);
         downCount=getView().findViewById(R.id.downCount);
@@ -176,11 +225,20 @@ public class home extends Fragment {
         mEditTextInput = getView().findViewById(R.id.edit_text_input);
         mButtonStartPause = getView().findViewById(R.id.button_start_pause);
         textView35=getView().findViewById(R.id.textView35);
+         viewMore = (Button)getView().findViewById(R.id.viewMore);
+
     }
     private void setTime(long milliseconds) {
         mStartTimeInMillis = milliseconds;
         resetTimer();
         closeKeyboard();
+    }
+    private void closeKeyboard() {
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
     private void startTimer() {
         mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
@@ -258,19 +316,14 @@ public class home extends Fragment {
                 updateData.child("drugDurations").setValue(0);
                 bookLay.setVisibility(View.VISIBLE);
                 downCount.setVisibility(View.INVISIBLE);
+                flag=true;
 
             } else {
                 // mButtonReset.setVisibility(View.INVISIBLE);
             }
         }
     }
-    private void closeKeyboard() {
-        View view = getActivity().getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -305,6 +358,130 @@ public class home extends Fragment {
             } else {
                 startTimer();
             }
+        }
+    }
+    private void addBottomDots(int currentPage) {
+        dots = new TextView[layouts.length];
+
+        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
+        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
+
+        dotsLayout.removeAllViews();
+        for (int i = 0; i < dots.length; i++) {
+            dots[i] = new TextView(getContext());
+            dots[i].setText(Html.fromHtml("&#8226;"));
+            dots[i].setTextSize(35);
+            dots[i].setTextColor(colorsInactive[currentPage]);
+            dotsLayout.addView(dots[i]);
+        }
+
+        if (dots.length > 0)
+            dots[currentPage].setTextColor(colorsActive[currentPage]);
+    }
+
+    private int getItem(int i) {
+        return viewPager.getCurrentItem() + i;
+    }
+
+
+
+    //  viewpager change listener
+    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            addBottomDots(position);
+
+            // changing the next button text 'NEXT' / 'GOT IT'
+            if (position == 0) {
+               if( viewMore.isPressed())
+                   send(position);
+            } else if(position == 1) {
+                if( viewMore.isPressed())
+                    send(position);}
+            else{            send(position);
+            }
+
+            }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+
+
+
+    };
+public void send(int pos){
+    switch(pos){
+        case 0:
+            viewMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = "http://www.biobridgeglobal.org/news/why-wait-between-blood-donations";
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                }
+            });
+            break;
+        case 1:
+            String url2 = "http://www.google.com";
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url2)));
+            break;
+        case 2:
+            String url3 = "https://www.redcrossblood.org/donate-blood/manage-my-donations/rapidpass/medication-deferral-list.html";
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url3)));
+            break;
+
+    }
+}
+    /**
+     * Making notification bar transparent
+     */
+    private void changeStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            //window.setStatusBarColor(Color.TRANSPARENT);
+        }
+    }
+    /**
+     * View pager adapter
+     */
+    public class MyViewPagerAdapter extends PagerAdapter {
+        private LayoutInflater layoutInflater;
+
+        public MyViewPagerAdapter() {
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            View view = layoutInflater.inflate(layouts[position], container, false);
+            container.addView(view);
+
+            return view;
+        }
+
+        @Override
+        public int getCount() {
+            return layouts.length;
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object obj) {
+            return view == obj;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            View view = (View) object;
+            container.removeView(view);
         }
     }
 }

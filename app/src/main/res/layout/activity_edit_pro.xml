@@ -80,7 +80,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/addImg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"

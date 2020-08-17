@@ -6,13 +6,18 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -42,6 +47,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,7 +62,7 @@ import io.paperdb.Paper;
 public class EditProActivity extends AppCompatActivity implements View.OnClickListener {
     private AppCompatTextView birthday,blood_type,gender;
     AppCompatEditText fullname,Weight,phone,email;
-    ImageButton back;
+    ImageButton back,addImg;
     boolean flag = false;
     private FirebaseAuth mAuth;
     String uid;
@@ -64,14 +70,14 @@ public class EditProActivity extends AppCompatActivity implements View.OnClickLi
     FirebaseDatabase database;
     DatabaseReference ref;
     String x1,x2,x3,x4,x5,x6;
-Button edit;
+    private static final int SELECT_PICTURE = 1;
+    private String selectedImagePath;
+
+    Button edit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_pro);
-
-
-       // database = FirebaseDatabase.getInstance();
         initView();
     }
     private void initView() {
@@ -134,34 +140,57 @@ Button edit;
         });
         edit =   findViewById(R.id.edit);
         edit.setOnClickListener(this);
-       /* edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseDatabase.getInstance().getReference().child("User").child(uid)
-                        .addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        addImg=  (ImageButton) findViewById(R.id.addImg);
+        addImg.setOnClickListener(new View.OnClickListener() {
 
-                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                    dataSnapshot1.getRef().child("userName").setValue(fullname.getText().toString());
-                                    dataSnapshot1.getRef().child("email").setValue(email.getText().toString());
-                                    dataSnapshot1.getRef().child("birthday").setValue(birthday.getText().toString());
-                                    dataSnapshot1.getRef().child("phoneNumber").setValue(phone.getText().toString());
-                                    dataSnapshot1.getRef().child("gender").setValue(gender.getText().toString());
-                                    dataSnapshot1.getRef().child("bloodType").setValue(blood_type.getText().toString());
-                                    //  Weight.setText(Integer.toString(dataSnapshot1.child("weight").getValue(int.class)));
+            public void onClick(View arg0) {
 
-                                }
-                            }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-
-                        });
+                // in onCreate or any event where your want the user to
+                // select a file
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent,
+                        "Select Picture"), SELECT_PICTURE);
             }
-        });*/
+        });
 
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_PICTURE) {
+                Uri selectedImageUri = data.getData();
+                selectedImagePath = getPath(selectedImageUri);
+                Toast.makeText(this, ""+selectedImagePath, Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
+
+    /**
+     * helper to retrieve the path of an image URI
+     */
+    public String getPath(Uri uri) {
+        // just some safety built in
+        if( uri == null ) {
+            // TODO perform some logging or show user feedback
+            return null;
+        }
+        // try to retrieve the image from the media store first
+        // this will only work for images selected from gallery
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        if( cursor != null ){
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            String path = cursor.getString(column_index);
+            cursor.close();
+            return path;
+        }
+        // this is our fallback here
+        return uri.getPath();
     }
     private boolean Validations() {
 
@@ -284,29 +313,9 @@ Button edit;
         }
     }
     private void SaveToDataBase(User user) {
-        /*Map<String,Object> map = new HashMap<>();
-
-        map.put("bloodType",user.getBloodType());
-        map.put("phoneNumber",user.getPhoneNumber());
-        map.put("gender",user.getGender());
-        map.put("weight",user.getWeight());
-        map.put("userName",user.getFullname());
-        map.put("email",user.getEmail());
-        map.put("birthday",user.getBirthday());
-
-
-        ref.child(uid).updateChildren(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Paper.book().write("userId", uid);
-                Toast.makeText(getApplicationContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(EditProActivity.this, TabActivity.class));
-                finish();
-            }
-        });
-*/
 
     }
+
     private void showMyDialog(final String[] pickerVals, int i, String titles) {
         final Dialog dialog = new Dialog(this, R.style.mydialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
@@ -348,3 +357,76 @@ Button edit;
         window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 }
+
+ /*Map<String,Object> map = new HashMap<>();
+
+        map.put("bloodType",user.getBloodType());
+        map.put("phoneNumber",user.getPhoneNumber());
+        map.put("gender",user.getGender());
+        map.put("weight",user.getWeight());
+        map.put("userName",user.getFullname());
+        map.put("email",user.getEmail());
+        map.put("birthday",user.getBirthday());
+
+
+        ref.child(uid).updateChildren(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Paper.book().write("userId", uid);
+                Toast.makeText(getApplicationContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(EditProActivity.this, TabActivity.class));
+                finish();
+            }
+        });
+*//* @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK)
+            switch (requestCode){
+                case GALLERY_REQUEST:
+                    Uri selectedImage = data.getData();
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                        addImg.setImageBitmap(bitmap);
+                    } catch (IOException e) {
+                        Log.i("TAG", "Some exception " + e);
+                    }
+                    break;
+            }
+    }*/
+ /*  addImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //change to settings
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+            }
+        });*/
+       /* edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference().child("User").child(uid)
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                    dataSnapshot1.getRef().child("userName").setValue(fullname.getText().toString());
+                                    dataSnapshot1.getRef().child("email").setValue(email.getText().toString());
+                                    dataSnapshot1.getRef().child("birthday").setValue(birthday.getText().toString());
+                                    dataSnapshot1.getRef().child("phoneNumber").setValue(phone.getText().toString());
+                                    dataSnapshot1.getRef().child("gender").setValue(gender.getText().toString());
+                                    dataSnapshot1.getRef().child("bloodType").setValue(blood_type.getText().toString());
+                                    //  Weight.setText(Integer.toString(dataSnapshot1.child("weight").getValue(int.class)));
+
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+
+                        });
+            }
+        });*/

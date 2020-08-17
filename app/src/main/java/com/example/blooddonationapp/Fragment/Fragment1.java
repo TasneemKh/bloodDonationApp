@@ -16,7 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 
+import com.example.blooddonationapp.Activity.PreDonationCheckActivity;
 import com.example.blooddonationapp.R;
+import com.example.blooddonationapp.SharedPreferencesApp;
 import com.example.blooddonationapp.TabActivity;
 import com.example.blooddonationapp.changePager;
 
@@ -51,6 +53,12 @@ public class Fragment1 extends Fragment  implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         Paper.init(getActivity().getApplicationContext());
         initView(getView());
+        if (SharedPreferencesApp.getInstance(getContext()).getStringData("flag").equals("done")){
+            Toast.makeText(getContext(), "you are complete your data before", Toast.LENGTH_SHORT).show();
+            getActivity().startActivity(new Intent(getContext(), PreDonationCheckActivity.class));
+
+            getActivity().finish();
+        }
 
     }
 
